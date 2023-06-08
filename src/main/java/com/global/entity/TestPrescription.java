@@ -2,12 +2,14 @@ package com.global.entity;
 
 import java.time.LocalDate;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.Size;
 
 public class TestPrescription {
 	
@@ -16,6 +18,8 @@ public class TestPrescription {
 	@GeneratedValue(generator = "myTestPreSeq")
 	private int tpId;
 	
+	@Size(min = 1, max = 25)
+	@Column(unique=true)
 	private String testPrescriptionId;
 	
 	private LocalDate testDay;

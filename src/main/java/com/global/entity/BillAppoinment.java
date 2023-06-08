@@ -23,7 +23,6 @@ public class BillAppoinment {
 	@GeneratedValue(generator = "myBillAppSeq")
 	private int baId;
 	
-	@NotNull(message = "is required")
 	@Size(min = 1, max = 25)
 	@Column(unique=true)
 	private String billAppoinmentNo;

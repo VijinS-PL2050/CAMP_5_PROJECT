@@ -12,6 +12,7 @@ import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Range;
 import org.springframework.stereotype.Component;
 
 @Entity
@@ -20,12 +21,11 @@ public class PatientRecords {
 	
 	
 	@Id
-	@SequenceGenerator(name = "myPatSeq", sequenceName = "myPatSeq", initialValue = 100100100, allocationSize = 1)
+	@SequenceGenerator(name = "myPatSeq", sequenceName = "myPatSeq", initialValue = 1001000, allocationSize = 1)
 	@GeneratedValue(generator = "myPatSeq")
 	private int pId;
 	
-	@NotNull(message = "is required")
-	@Size(min = 1, max = 25)
+	//@Size(min = 1, max = 25)
 	@Column(unique=true)
 	private String mrNo;
 	
@@ -36,15 +36,15 @@ public class PatientRecords {
 	@NotNull(message = "is required")
 	@Size(min = 1, max = 25)
 	@Column(unique=true)
-	private long patientPhone;
+	private String patientPhone;
 	
 	@NotNull(message = "is required")
 	@Size(min = 1, max = 25)
 	private String patientAddress;
 	
 	@NotNull(message = "is required")
-	@Size(min = 1, max = 4)
-	private short patientAge;
+	@Range(min=0, max=90)
+	private int patientAge;
 	
 	@NotNull(message = "is required")
 	@Size(min = 1, max = 10)
@@ -96,11 +96,11 @@ public class PatientRecords {
 		this.patientName = patientName;
 	}
 
-	public long getPatientPhone() {
+	public String getPatientPhone() {
 		return patientPhone;
 	}
 
-	public void setPatientPhone(long patientPhone) {
+	public void setPatientPhone(String patientPhone) {
 		this.patientPhone = patientPhone;
 	}
 
@@ -112,11 +112,11 @@ public class PatientRecords {
 		this.patientAddress = patientAddress;
 	}
 
-	public short getPatientAge() {
+	public int getPatientAge() {
 		return patientAge;
 	}
 
-	public void setPatientAge(short patientAge) {
+	public void setPatientAge(int patientAge) {
 		this.patientAge = patientAge;
 	}
 

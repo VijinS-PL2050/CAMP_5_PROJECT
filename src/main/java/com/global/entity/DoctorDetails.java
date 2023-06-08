@@ -23,11 +23,10 @@ import org.springframework.stereotype.Component;
 public class DoctorDetails {
 
 	@Id
-	@SequenceGenerator(name = "myDocSeq", sequenceName = "myDocSeq", initialValue = 5000, allocationSize = 1)
+	@SequenceGenerator(name = "myDocSeq", sequenceName = "myDocSeq", initialValue = 500, allocationSize = 1)
 	@GeneratedValue(generator = "myDocSeq")
 	private int doId;
 	
-	@NotNull(message = "is required")
 	@Size(min = 1, max = 25)
 	@Column(unique=true)
 	private String doctorId;
@@ -75,8 +74,10 @@ public class DoctorDetails {
 	private String specialization;
 	
 	@NotNull(message = "is required")
-	@Size(min = 1, max = 50)
 	private double consultationFee;
+	
+	@NotNull(message = "is required")
+	private int noOfToken;
 	
 	@NotNull(message = "is required")
 	@Size(min = 1, max = 25)
@@ -99,6 +100,16 @@ public class DoctorDetails {
 	public DoctorDetails() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+
+	public int getNoOfToken() {
+		return noOfToken;
+	}
+
+
+	public void setNoOfToken(int noOfToken) {
+		this.noOfToken = noOfToken;
 	}
 
 

@@ -17,7 +17,6 @@ public class TestReport {
 	@GeneratedValue(generator = "myTestRepSeq")
 	private int rpId;
 	
-	@NotNull(message = "is required")
 	@Size(min = 1, max = 25)
 	@Column(unique=true)
 	private int reportId;

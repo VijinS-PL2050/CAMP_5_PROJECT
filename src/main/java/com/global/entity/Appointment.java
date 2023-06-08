@@ -13,6 +13,7 @@ import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 
@@ -26,15 +27,15 @@ public class Appointment {
 	@GeneratedValue(generator = "myAppSeq")
 	private int aId;
 	
-	@NotNull(message = "is required")
-	@Size(min = 1, max = 25)
 	@Column(unique=true)
 	private String bookingNo;
 
 	@NotNull(message = "is required")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private LocalDateTime appointmentDateTime;
 	
 	@NotNull(message = "is required")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private LocalDateTime appointmentValidity;
 	
 	@NotNull(message = "is required")

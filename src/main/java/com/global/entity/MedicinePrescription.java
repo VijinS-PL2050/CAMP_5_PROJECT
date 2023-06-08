@@ -29,8 +29,6 @@ public class MedicinePrescription {
 	@GeneratedValue(generator = "myMedPreSeq")
 	private int mpId;
 	
-	
-	@NotNull(message = "is required")
 	@Size(min = 1, max = 25)
 	@Column(unique=true)
 	private String medicinePrescriptionId;
