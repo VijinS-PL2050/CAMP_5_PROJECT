@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import org.springframework.web.servlet.ModelAndView;
 
 import com.global.entity.Appointment;
@@ -27,6 +29,8 @@ import com.global.receptionist.service.IBillAppointmentService;
 import com.global.receptionist.service.IDoctorAndDepartmentService;
 import com.global.receptionist.service.IPatientService;
 import com.global.receptionist.service.ITokenGeneratorService;
+
+
 
 @Controller
 @RequestMapping("/appointment")
@@ -69,15 +73,29 @@ public class AppointmentController {
 		forAppointment.setPatientRecords(patientService.searchById(pId));
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		List<DoctorDepartment> listDoctorDepartments = doctorAndDepartmentService.getAllDepartment();
-		List<DoctorDetails> listDoctorDetails = doctorAndDepartmentService.getAllDoctorDetailss();
+		//List<DoctorDetails> listDoctorDetails = doctorAndDepartmentService.getAllDoctorDetailss();
 
 		modelMap.put("appointment", forAppointment);
 		modelMap.put("department", listDoctorDepartments);
-		modelMap.put("doctor", listDoctorDetails);
+		modelMap.put("patient", patientService.searchById(pId));
 
 		return new ModelAndView("appointment-form", modelMap);
 
 	}
+	
+	@GetMapping("/getDoctors")
+    @ResponseBody
+    public List<DoctorDetails> getDoctors(@RequestParam("departmentId") int dId) {
+		
+		System.out.println("hi im in");
+        // Call the doctorService to fetch the doctors based on the departmentId
+        List<DoctorDetails> doctors = doctorAndDepartmentService.getAllDoctorDetailss(dId);
+        for(DoctorDetails a : doctors) {
+        	System.out.println(a.getDoctorName());
+        }
+        
+        return doctors;
+    }
 
 	@PostMapping("/insertAppointment")
 	public String insertAppointment(@ModelAttribute("appointment") Appointment forAppointment) {
@@ -107,11 +125,11 @@ public class AppointmentController {
 
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		List<DoctorDepartment> listDoctorDepartments = doctorAndDepartmentService.getAllDepartment();
-		List<DoctorDetails> listDoctorDetails = doctorAndDepartmentService.getAllDoctorDetailss();
+		//List<DoctorDetails> listDoctorDetails = doctorAndDepartmentService.getAllDoctorDetailss();
 
 		modelMap.put("appointment", appointmentService.searchByaId(theId));
 		modelMap.put("department", listDoctorDepartments);
-		modelMap.put("doctor", listDoctorDetails);
+		//modelMap.put("doctor", listDoctorDetails);
 
 		return new ModelAndView("appointment-form", modelMap);
 
@@ -208,6 +226,7 @@ public class AppointmentController {
 			sum = forAppoint.getDoctorDetails().getConsultationFee();
 		} else {
 			System.out.println(" i m in else");
+			
 			sum = 150;
 		}
 		billAppoinment.setBillAmount(sum);

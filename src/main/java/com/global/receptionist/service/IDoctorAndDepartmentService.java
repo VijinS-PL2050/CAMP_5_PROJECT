@@ -7,7 +7,7 @@ import com.global.entity.DoctorDetails;
 
 public interface IDoctorAndDepartmentService {
 	
-	public List<DoctorDetails> getAllDoctorDetailss();
+	public List<DoctorDetails> getAllDoctorDetailss(int deptId);
 	public List<DoctorDepartment> getAllDepartment();
 	public DoctorDetails getDoctorDetails(int doId);
 	public void updateForToken(DoctorDetails doctorDetails);

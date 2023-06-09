@@ -58,9 +58,10 @@ public class PatientRepo implements IPatientRepo {
 	@Transactional
 	public List<PatientRecords> searchByName(String sName) {
 		Session currentSeesion = session.getCurrentSession();
-		Query<PatientRecords> query = currentSeesion.createQuery("FROM PatientRecords WHERE isActive=:act AND patientName=:name", PatientRecords.class);
+		Query<PatientRecords> query = currentSeesion.createQuery("FROM PatientRecords WHERE isActive=:act AND patientName=:name OR mrNo=:no", PatientRecords.class);
 		query.setParameter("act", "true");
 		query.setParameter("name", sName);
+		query.setParameter("no", sName);
 		return query.getResultList();
 	}
 

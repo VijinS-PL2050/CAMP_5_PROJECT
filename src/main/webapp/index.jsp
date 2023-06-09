@@ -7,10 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<!--  <h1>WELCOME GHC</h1>
+	<h1>WELCOME GHC</h1>
 	<a href="patient/listPatientRecords">List Patient</a>
 	<a href="patient/showFormForPatientRecord">Add Patient</a>
-	<a href="appointment/showFormForAppointment">BOOK APPOINTMENT</a>-->
+	<a href="appointment/showFormForAppointment">BOOK APPOINTMENT</a>
 	<a href="login/user">LOGIN</a>
 </body>
 </html>

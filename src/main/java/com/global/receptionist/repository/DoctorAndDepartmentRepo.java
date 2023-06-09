@@ -23,13 +23,24 @@ public class DoctorAndDepartmentRepo implements IDoctorAndDepartmentRepo {
 		super();
 		this.session = session;
 	}
+	
+	
+	
+
+	public DoctorAndDepartmentRepo() {
+		
+	}
+
+
+
 
 	@Override
 	@Transactional
-	public List<DoctorDetails> getAllDoctorDetailss() {
+	public List<DoctorDetails> getAllDoctorDetailss(int deptId) {
 		Session currentSeesion = session.getCurrentSession();
-		Query<DoctorDetails> query = currentSeesion.createQuery("FROM DoctorDetails WHERE isActive=:act order by doctorName", DoctorDetails.class);
+		Query<DoctorDetails> query = currentSeesion.createQuery("FROM DoctorDetails WHERE isActive=:act AND dId=:ddID order by doctorName", DoctorDetails.class);
 		query.setParameter("act", "true");
+		query.setParameter("ddID", deptId);
 		return query.getResultList();
 	}
 

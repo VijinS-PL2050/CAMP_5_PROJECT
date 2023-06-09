@@ -22,9 +22,9 @@ public class DoctorAndDepartmentService implements IDoctorAndDepartmentService {
 	}
 
 	@Override
-	public List<DoctorDetails> getAllDoctorDetailss() {
+	public List<DoctorDetails> getAllDoctorDetailss(int deptId) {
 		
-		return doctorAndDepartmentRepo.getAllDoctorDetailss();
+		return doctorAndDepartmentRepo.getAllDoctorDetailss(deptId);
 	}
 
 	@Override
