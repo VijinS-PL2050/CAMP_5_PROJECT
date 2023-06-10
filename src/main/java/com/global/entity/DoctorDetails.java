@@ -28,11 +28,7 @@ public class DoctorDetails {
 	@SequenceGenerator(name = "myDocSeq", sequenceName = "myDocSeq", initialValue = 500, allocationSize = 1)
 	@GeneratedValue(generator = "myDocSeq")
 	private int doId;
-	
-<<<<<<< HEAD
-=======
-	
->>>>>>> branch 'master' of https://github.com/VijinS-PL2050/CAMP_5_PROJECT.git
+
 	@Size(min = 1, max = 25)
 	@Column(unique=true)
 	private String doctorId;
@@ -77,19 +73,12 @@ public class DoctorDetails {
 	private String email;
 	
 	
-	//@NotNull(message = "is required")
-	//@Size(min = 1, max = 50)
-	private double consultationFee;
-	
 	@NotNull(message = "is required")
-<<<<<<< HEAD
 	private double consultationFee;
-=======
-	private int noOfToken;
->>>>>>> branch 'master' of https://github.com/VijinS-PL2050/CAMP_5_PROJECT.git
-	
+
 	@NotNull(message = "is required")
 	private int noOfToken;
+
 	
 	@NotNull(message = "is required")
 	@Size(min = 1, max = 25)
@@ -112,16 +101,6 @@ public class DoctorDetails {
 	public DoctorDetails() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-
-
-	public int getNoOfToken() {
-		return noOfToken;
-	}
-
-
-	public void setNoOfToken(int noOfToken) {
-		this.noOfToken = noOfToken;
 	}
 
 

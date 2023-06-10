@@ -24,10 +24,6 @@ public class BillAppoinment {
 	@GeneratedValue(generator = "myBillAppSeq")
 	private int baId;
 	
-<<<<<<< HEAD
-=======
-	
->>>>>>> branch 'master' of https://github.com/VijinS-PL2050/CAMP_5_PROJECT.git
 	@Size(min = 1, max = 25)
 	@Column(unique=true)
 	private String billAppoinmentNo;

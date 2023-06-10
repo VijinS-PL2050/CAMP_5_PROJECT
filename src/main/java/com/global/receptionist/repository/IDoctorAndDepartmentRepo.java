@@ -13,6 +13,7 @@ public interface IDoctorAndDepartmentRepo {
 	public DoctorDetails getDoctorDetails(int doId);
 	public void updateForToken(DoctorDetails doctorDetails);
 	public List<DoctorDetails> allDoctorDetailss();
+	public DoctorDepartment getDoctorDepartment(int getdId);
 	
 
 }

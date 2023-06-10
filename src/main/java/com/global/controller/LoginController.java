@@ -44,7 +44,12 @@ public class LoginController {
 		if (user == null) {
 
 			return "redirect:/login/user";
-		} else if (user.getRole().getrId()== 2) {
+		} else if (user.getRole().getrId()== 1000) {
+			System.out.println("ROle is 2");
+			session.setAttribute("username", username);
+			session.setAttribute("roleId", user.getRole().getRoleId());
+			return "admin-dash";
+		} else if (user.getRole().getrId()== 1001) {
 			System.out.println("ROle is 2");
 			session.setAttribute("username", username);
 			session.setAttribute("roleId", user.getRole().getRoleId());

@@ -50,4 +50,10 @@ public class DoctorAndDepartmentService implements IDoctorAndDepartmentService {
 		return doctorAndDepartmentRepo.allDoctorDetailss();
 	}
 
+	@Override
+	public DoctorDepartment getDoctorDepartment(int getdId) {
+		// TODO Auto-generated method stub
+		return doctorAndDepartmentRepo.getDoctorDepartment(getdId);
+	}
+
 }

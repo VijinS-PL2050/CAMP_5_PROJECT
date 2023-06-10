@@ -22,26 +22,6 @@ public class DoctorDepartment {
 	@SequenceGenerator(name = "myDepSeq", sequenceName = "myDepSeq", initialValue = 200, allocationSize = 1)
 	@GeneratedValue(generator = "myDepSeq")
 	private int dId;
-<<<<<<< HEAD
-=======
-	
-	@Size(min = 1, max = 25)
-	@Column(unique=true)
-	private String departmentId;
-	
-	@NotNull(message = "is required")
-	@Size(min = 1, max = 25)
-	@Column(unique=true)
-	private String departmentName;
-	
-	@NotNull(message = "is required")
-	@Size(min = 1, max = 25)
-	private String isActive="true";
-	
-	
-	@OneToMany(mappedBy="doctorDepartment")
-	private List<DoctorDetails> doctorDetails;
->>>>>>> branch 'master' of https://github.com/VijinS-PL2050/CAMP_5_PROJECT.git
 
 	@Size(min = 1, max = 25)
 	@Column(unique = true)

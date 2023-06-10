@@ -51,10 +51,6 @@ public class DoctorController {
 
 	@PostMapping("/saveDoctorDetails")
 	public String saveDoctorDetails(@ModelAttribute("DoctorDetails") DoctorDetails doc) {
-		
-		System.out.println();
-		LocalDate newDate = doc.getDateOfBirth().plusDays(1);
-		doc.setDateOfBirth(newDate);
 		hospitalService.saveDoctorDetails(doc);
 
 		return "redirect:/doctordetails/list";

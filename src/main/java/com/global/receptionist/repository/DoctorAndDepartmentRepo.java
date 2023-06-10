@@ -79,4 +79,14 @@ public class DoctorAndDepartmentRepo implements IDoctorAndDepartmentRepo {
 		query.setParameter("act", "true");
 		return query.getResultList();	}
 
+
+
+
+	@Override
+	@Transactional
+	public DoctorDepartment getDoctorDepartment(int getdId) {
+		Session currentSeesion = session.getCurrentSession();
+		return currentSeesion.get(DoctorDepartment.class, getdId);
+	}
+
 }

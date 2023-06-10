@@ -2,6 +2,7 @@ package com.global.entity;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,11 +28,7 @@ public class Appointment {
 	@GeneratedValue(generator = "myAppSeq")
 	private int aId;
 	
-<<<<<<< HEAD
-=======
-	
 	@Size(min = 1, max = 25)
->>>>>>> branch 'master' of https://github.com/VijinS-PL2050/CAMP_5_PROJECT.git
 	@Column(unique=true)
 	private String bookingNo;
 
@@ -63,7 +60,7 @@ public class Appointment {
 	@OneToOne(mappedBy = "appointment")
 	private TokenGenarator tokenGenarator;
 	
-	@OneToOne(mappedBy = "appointment")
+	@OneToOne(mappedBy = "appointment", cascade=CascadeType.ALL)
 	private BillAppoinment billAppoinment;
 
 	public Appointment() {

@@ -100,14 +100,34 @@ public class AppointmentController {
 	@PostMapping("/insertAppointment")
 	public String insertAppointment(@ModelAttribute("appointment") Appointment forAppointment) {
 
-		appointmentService.insertUpdateAppointment(forAppointment);
-		if (forAppointment.getBillAppoinment() == null) {
+		if(forAppointment.getaId()==0) {
+			System.out.println();
+			BillAppoinment billAppoinment=generateBillAppoint(forAppointment);
+			forAppointment.setBillAppoinment(billAppoinment);
+			appointmentService.insertUpdateAppointment(forAppointment);
 			generateToken(forAppointment);
-			generateBill(forAppointment);
-			return "redirect:/appointment/KKKKK";
-		} else {
+			return "redirect:/billReceptionist/showBillForReceptionistAppoint";
+		}else {
 			return "redirect:/appointment/listAppointmentRecords";
 		}
+	}
+
+	private BillAppoinment generateBillAppoint(Appointment forAppointment2) {
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+		LocalDateTime noww = LocalDateTime.parse(LocalDateTime.now().format(format), format);
+		billAppoinment.setAppointment(forAppointment2);
+		billAppoinment.setBillDate(noww);
+		billAppoinment.setIsActive("true");
+		LocalDate todayDate = LocalDate.now();
+		LocalDate patVal = patientService.searchById(forAppointment2.getPatientRecords().getpId()).getValidityDate();
+		int doId = forAppointment2.getDoctorDetails().getDoId();
+		double fee=doctorAndDepartmentService.getDoctorDetails(doId).getConsultationFee();
+		if(patVal.isBefore(todayDate)) {
+			billAppoinment.setBillAmount(150+fee);
+		}else {
+			billAppoinment.setBillAmount(fee);
+		}
+		return billAppoinment;
 	}
 
 	@GetMapping("/listAppointmentRecords")
@@ -178,7 +198,7 @@ public class AppointmentController {
 		if (appointDate.isAfter(noww) && appointDate.isBefore(todayAt6)) {
 			if (maxToken > 0) {
 				tokenGenarator.setTokenTime(appointment.getAppointmentDateTime().plusMinutes(15));
-				tokenGenarator.setTokenNo("T" + doctorId + (30-maxToken));
+				tokenGenarator.setTokenNo("T" + doctorId + (31-maxToken));
 				tokenGenarator.setAppointment(appointment);
 				tokenGeneratorService.insertUpdateTokenGenarator(tokenGenarator);
 				doctorDetails.setNoOfToken(maxToken - 1);
@@ -187,7 +207,7 @@ public class AppointmentController {
 		}
 	}
 
-	private void generateBill(Appointment forAppoint) {
+	/*private void generateBill(Appointment forAppoint) {
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 		LocalDateTime noww = LocalDateTime.parse(LocalDateTime.now().format(format), format);
 		LocalDate todayDate = LocalDate.now();
@@ -211,29 +231,11 @@ public class AppointmentController {
 		billAppoinment.setBillDate(noww);
 		System.out.println("kjhgf"+billAppoinment.getBillDate());
 		
-		if (patReg.equals(todayDate)) {
-			System.out.println(" i m in 1st if");
-			System.out.println(forAppoint.getDoctorDetails().getDoId());
-			System.out.println( "jhgfd"+doctorAndDepartmentService.getDoctorDetails(forAppoint.getDoctorDetails().getDoId()).getConsultationFee());
-			sum = 150 + forAppoint.getDoctorDetails().getConsultationFee();
-
-		} else if (patVal.isBefore(todayDate) && appointV.isBefore(noww)) {
-			System.out.println(" i m in 2st if");
-			System.out.println( forAppoint.getDoctorDetails().getConsultationFee());
-			sum = 150 + forAppoint.getDoctorDetails().getConsultationFee();
-		} else if (patVal.isAfter(todayDate) && appointV.isBefore(noww)) {
-			System.out.println(" i m in 3st if");
-			System.out.println( forAppoint.getDoctorDetails().getConsultationFee());
-			sum = forAppoint.getDoctorDetails().getConsultationFee();
-		} else {
-			System.out.println(" i m in else");
-			
-			sum = 150;
-		}
+		
 		billAppoinment.setBillAmount(sum);
 		System.out.println(billAppoinment.getBillAmount());
 		billAppointmentService.insertUpdateBillAppoinment(billAppoinment);
 
-	}
+	}*/
 
 }

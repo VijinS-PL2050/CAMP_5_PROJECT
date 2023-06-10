@@ -76,8 +76,15 @@ input[type="text"] {
 	border-radius: 5px;
 }
 
-select, input[type="date"], input[type="submit"] {
+select, input[type="date"] {
 	width: 100%;
+	padding: 8px;
+	border: 1px solid #000000;
+	border-radius: 5px;
+}
+
+input[type="submit"] {
+	width: 20%;
 	padding: 8px;
 	border: 1px solid #000000;
 	border-radius: 5px;
