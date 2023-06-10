@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.global.entity.BillMedicine;
+import com.global.entity.Diagnosis;
 import com.global.entity.MedicinePrescription;
 import com.global.entity.MedicinesStock;
 import com.global.pharma.repository.IMedicineStockDao;
@@ -76,16 +77,30 @@ public class MedicineStockService  implements IMedicineStockService{
 		medicineDemo.getmedicineDisable(theId);
 	}
 
+	
+
 	@Override
-	public List<BillMedicine> getMedicinebill() {
+	public List<MedicinePrescription> getveiwprisccription(int theId) {
 		// TODO Auto-generated method stub
-		return medicineDemo.getMedicinebill();
+		return medicineDemo.getveiwprisccription(theId);
 	}
 
 	@Override
-	public List<BillMedicine> searchMedicinebill(String theName) {
+	public List<BillMedicine> getveiwprisccrip(int theId) {
 		// TODO Auto-generated method stub
-		return medicineDemo.searchMedicinebill(theName);
+		return medicineDemo.getveiwprisccrip(theId) ;
+	}
+
+	@Override
+	public List<MedicinePrescription> getbill() {
+		// TODO Auto-generated method stub
+		return medicineDemo.getbill() ;
+	}
+
+	@Override
+	public List<MedicinePrescription> getbill(int theId) {
+		// TODO Auto-generated method stub
+		return  medicineDemo.getbill(theId);
 	}
 
 	

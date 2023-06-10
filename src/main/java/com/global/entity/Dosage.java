@@ -35,6 +35,17 @@ public class Dosage {
 	private String dosage;
 	
 	@NotNull(message = "is required")
+	private int quantity;
+	
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	@NotNull(message = "is required")
 	private String isActive="true";
 
 	@OneToMany(mappedBy = "dosage")

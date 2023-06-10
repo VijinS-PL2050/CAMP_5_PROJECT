@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.global.entity.BillMedicine;
+import com.global.entity.Diagnosis;
 import com.global.entity.MedicinePrescription;
 import com.global.entity.MedicinesStock;
 
@@ -131,27 +132,57 @@ public class MedicineStockDao implements IMedicineStockDao {
 		currentSession.saveOrUpdate(medicine);
 	}
 
+	
+
 	@Override
 	@Transactional
-	public List<BillMedicine> getMedicinebill() {
+	public List<MedicinePrescription> getveiwprisccription(int theId) {
+		// TODO Auto-generated method stub
 		Session currentSession = sessionFactory.getCurrentSession();
-		Query<BillMedicine> theQuery = currentSession
-				.createQuery("from BillMedicine WHERE isActive='true'", BillMedicine.class);
+		Query<MedicinePrescription> query=currentSession.createQuery("FROM MedicinePrescription WHERE isActive=:act AND diId=:dI", MedicinePrescription.class);
+		query.setParameter("act", "true");
+		query.setParameter("dI", theId);
+		return query.getResultList();
+	}
+
+	
+	
+
+	@Override
+	@Transactional
+	public List<BillMedicine> getveiwprisccrip(int theId) {
+		Session currentSession = sessionFactory.getCurrentSession();
+		Query<BillMedicine> query=currentSession.createQuery("FROM  BillMedicine  WHERE isActive=:act AND diId=:dI", BillMedicine.class);
+		query.setParameter("act", "true");
+		query.setParameter("dI", theId);
+		return query.getResultList();
+	
+	
+}
+
+	@Override
+	@Transactional
+	public List<MedicinePrescription> getbill() {
+		Session currentSession = sessionFactory.getCurrentSession();
+		Query<MedicinePrescription> theQuery = currentSession
+				.createQuery("from MedicinePrescription WHERE isActive='true'", MedicinePrescription.class);
 		// execute query and get result set
 		
 
-		List<BillMedicine> Medicines = theQuery.getResultList();
+		List<MedicinePrescription> Medicines = theQuery.getResultList();
 
 		return Medicines;
 	}
-
 	@Override
 	@Transactional
-	public List<BillMedicine> searchMedicinebill(String theName) {
+	public List<MedicinePrescription> getbill(int theId) {
 		Session currentSession = sessionFactory.getCurrentSession();
-		Query<BillMedicine> theQuery = currentSession.createQuery("from BillMedicine where billMedicineNo=:b", BillMedicine.class);
-		theQuery.setParameter("b", theName);
-		List<BillMedicine> theCustomer = theQuery.getResultList();
-		return theCustomer;
+		Query<MedicinePrescription> query=currentSession.createQuery("FROM MedicinePrescription WHERE isActive=:act AND diId=:dI", MedicinePrescription.class);
+		query.setParameter("act", "true");
+		query.setParameter("dI", theId);
+		return query.getResultList();
 	}
-}
+	}
+
+	
+	

@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
 
@@ -11,6 +12,7 @@
 
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -115,9 +117,27 @@ fieldset {
 a {
 	color: #000000
 }
+>
 </style>
+<script>
+	function displayLocalDateTime() {
+		var currentDate = new Date();
+		var formattedDate = currentDate.toLocaleDateString();
+		var formattedTime = currentDate.toLocaleTimeString();
+
+		var dateTimeElement = document.getElementById("localDateTime");
+		dateTimeElement.textContent = formattedDate + " " + formattedTime;
+	}
+
+	// Call the function when the page finishes loading
+	window.onload = displayLocalDateTime;
+</script>
+
+
+
 </head>
 <body>
+
 	<div class="icon">
 
 		<a href="https://www.freepnglogos.com/pics/medical-logo-png"
@@ -132,47 +152,76 @@ a {
 		</h2>
 
 	</div>
+	
 
 
 	<div id="container">
-		<form action="searchss" method="post">
-			<input type="text" name="searchName"
-				placeholder="enter the Patient Name">
-
-			<button type="submit">search</button>
-		</form>
 
 
 		<table>
 			<tr>
-				<th>MedicinePrescriptionId</th>
-				<th>DoctorName</th>
-				<th>MRNo</th>
-				<th>PatientName</th>
-				<th>Action</th>
-				
+			<tr>
+
+
+				<th>BillNo</th>
+				<th>Bill Date & Time</th>
+				<th>Patient MRID</th>
+				<th>Patient Name</th>
+				<th>MedicineName</th>
+				<th>Quantity</th>
+				<th>Price</th>
+				<th>Number Of Days</th>
+				<th>Dosage</th>
+				<th>Total</th>
+
+			</tr>
+			<c:set var="TotalBill" value="0" />
+			<c:set var="billNo" value="BL1011" />
+			<c:set var="billNo" value="${billNo}" />
+			<!-- loop over and print our customers -->
+			<c:forEach var="tempprescription" items="${MedicinePrescriptions}">
+				<tr>
+					<td><div id="billNo"><c:out value="${billNo}" /></div></td>
+
+
+					
+					<!-- Increment the billNo for the next iteration -->
+
+
+					<th>
+						<div id="localDateTime">
+							<!-- Rest of the HTML code -->
+						</div>
+					</th>
+
+					<td><c:out
+							value="${tempprescription.diagnosis.tokenGenarator.appointment.patientRecords.mrNo }" /></td>
+					<td><c:out
+							value="${tempprescription.diagnosis.tokenGenarator.appointment.patientRecords.patientName }" /></td>
+					<td><c:out
+							value="${tempprescription.medicinesStock.medicineName }" /></td>
+					<td><c:out value="${tempprescription.dosage.quantity }" /></td>
+					<td><c:out value="${tempprescription.medicinesStock.price}" /></td>
+					<td><c:out value="${tempprescription.noOfDay }" /></td>
+					<td><c:out value="${tempprescription.dosage.dosage }" /></td>
+
+					<td><c:set var="a"
+							value="${tempprescription.dosage.quantity }" /> <c:set var="b"
+							value="${tempprescription.medicinesStock.price}" /> <c:set
+							var="Bill" value="${a * b}" /> <c:set var="TotalBill"
+							value="${Bill + TotalBill}" /> <c:out value="${Bill}" /></td>
+				</tr>
+			</c:forEach>
+			<tr>
+				<th>Total</th>
+				<th></th>
+				<th>:</th>
+				<th><c:out value="${TotalBill}" /></th>
 			</tr>
 
-			<!-- loop over and print our customers -->
-			<c:forEach var="tempprescription" items="${MedicinePrescriptions}">   
-				<c:url var="veiwlink" value="/MedicinesStock/listnew">
-					<c:param name="mpId" value="${tempprescription.diagnosis.diId }" />
-				</c:url>
-
-
-				<tr>
-					<td>${tempprescription.medicinePrescriptionId }</td>
-					<td>${tempprescription.diagnosis.tokenGenarator.appointment.doctorDetails.doctorName }</td>
-					<td>${tempprescription.diagnosis.tokenGenarator.appointment.patientRecords.mrNo }</td>
-					<td>${tempprescription.diagnosis.tokenGenarator.appointment.patientRecords.patientName }</td>
-
-
-			
-			<td><button onclick="window.location.href = '${veiwlink }'">View</button></td></tr>
-			
-			
-			</c:forEach>
 		</table>
+
+
 
 	</div>
 

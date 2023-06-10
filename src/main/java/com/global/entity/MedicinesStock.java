@@ -118,8 +118,8 @@ public class MedicinesStock {
 		return isActive;
 	}
 
-	public void setIsActive(String isActive) {
-		this.isActive = isActive;
+	public void setIsActive(@NotNull(message = "is required") @Size(min = 1, max = 25) String b) {
+		this.isActive = b;
 	}
 
 	public List<MedicinePrescription> getMedicinePrescription() {
@@ -134,8 +134,13 @@ public class MedicinesStock {
 	public String toString() {
 		return "MedicinesStock [msId=" + msId + ", medicineId=" + medicineId + ", medicineName=" + medicineName
 				+ ", companyName=" + companyName + ", genericName=" + genericName + ", quantity=" + quantity
-				+ ", price=" + price + ", isActive=" + isActive + ", medicinePrescription=" + medicinePrescription
+				+ ", price=" + price + ", isActive=" + isActive + ", medicinePrescription=" 
 				+ "]";
+	}
+
+	public void setIsActive(boolean b) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	
