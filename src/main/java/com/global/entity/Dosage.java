@@ -24,7 +24,7 @@ public class Dosage {
 	@GeneratedValue(generator = "myDosSeq")
 	private int dosId;
 	
-	@NotNull(message = "is required")
+	
 	@Size(min = 1, max = 25)
 	@Column(unique=true)
 	private String dosageId;

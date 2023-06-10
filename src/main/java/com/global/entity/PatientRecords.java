@@ -24,7 +24,7 @@ public class PatientRecords {
 	@GeneratedValue(generator = "myPatSeq")
 	private int pId;
 	
-	@NotNull(message = "is required")
+	
 	@Size(min = 1, max = 25)
 	@Column(unique=true)
 	private String mrNo;

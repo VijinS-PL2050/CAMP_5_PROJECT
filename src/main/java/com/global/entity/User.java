@@ -26,7 +26,6 @@ public class User {
 	@GeneratedValue(generator = "myUserSeq")
 	private int uId;
 	
-	@NotNull(message = "is required")
 	@Size(min = 1, max = 25)
 	@Column(unique=true)
 	private String userId;

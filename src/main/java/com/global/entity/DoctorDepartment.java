@@ -22,7 +22,6 @@ public class DoctorDepartment {
 	@GeneratedValue(generator = "myDepSeq")
 	private int dId;
 	
-	@NotNull(message = "is required")
 	@Size(min = 1, max = 25)
 	@Column(unique=true)
 	private String departmentId;

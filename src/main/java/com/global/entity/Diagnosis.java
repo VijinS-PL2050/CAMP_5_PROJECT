@@ -28,7 +28,6 @@ public class Diagnosis {
 	@GeneratedValue(generator = "myDiaSeq")
 	private int diId;
 	
-	@NotNull(message = "is required")
 	@Size(min = 1, max = 25)
 	@Column(unique=true)
 	private String diagnosisId;
