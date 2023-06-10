@@ -27,6 +27,11 @@ public class Appointment {
 	@GeneratedValue(generator = "myAppSeq")
 	private int aId;
 	
+<<<<<<< HEAD
+=======
+	
+	@Size(min = 1, max = 25)
+>>>>>>> branch 'master' of https://github.com/VijinS-PL2050/CAMP_5_PROJECT.git
 	@Column(unique=true)
 	private String bookingNo;
 

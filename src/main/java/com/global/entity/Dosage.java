@@ -24,6 +24,10 @@ public class Dosage {
 	@GeneratedValue(generator = "myDosSeq")
 	private int dosId;
 	
+<<<<<<< HEAD
+=======
+	
+>>>>>>> branch 'master' of https://github.com/VijinS-PL2050/CAMP_5_PROJECT.git
 	@Size(min = 1, max = 25)
 	@Column(unique=true)
 	private String dosageId;

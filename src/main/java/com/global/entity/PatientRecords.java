@@ -26,7 +26,12 @@ public class PatientRecords {
 	@GeneratedValue(generator = "myPatSeq")
 	private int pId;
 	
+<<<<<<< HEAD
 	//@Size(min = 1, max = 25)
+=======
+	
+	@Size(min = 1, max = 25)
+>>>>>>> branch 'master' of https://github.com/VijinS-PL2050/CAMP_5_PROJECT.git
 	@Column(unique=true)
 	private String mrNo;
 	
