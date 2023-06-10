@@ -23,7 +23,6 @@ public class BillMedicine {
 	@GeneratedValue(generator = "myBillMedSeq")
 	private int bmId;
 	
-	@NotNull(message = "is required")
 	@Size(min = 1, max = 25)
 	@Column(unique=true)
 	private String billMedicineNo;

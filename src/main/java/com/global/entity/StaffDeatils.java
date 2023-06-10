@@ -12,6 +12,7 @@ import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 @Entity
@@ -24,16 +25,17 @@ public class StaffDeatils {
 	@GeneratedValue(generator = "myStaffSeq")
 	private int sId;
 	
-	@NotNull(message = "is required")
 	@Size(min = 1, max = 25)
 	@Column(unique=true)
 	private String staffid;
+	
 	
 	@NotNull(message = "is required")
 	@Size(min = 1, max = 25)
 	private String staffname;
 	
 	@NotNull(message = "is required")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private LocalDate dateofbirth;
 	
 	@NotNull(message = "is required")

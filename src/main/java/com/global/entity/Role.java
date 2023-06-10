@@ -24,7 +24,7 @@ public class Role {
 	@GeneratedValue(generator = "myRoleSeq")
 	private int rId;
 	
-	@NotNull(message = "is required")
+	
 	@Size(min = 1, max = 25)
 	@Column(unique=true)
 	private String roleId;

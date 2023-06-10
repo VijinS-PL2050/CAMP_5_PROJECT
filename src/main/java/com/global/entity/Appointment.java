@@ -26,7 +26,7 @@ public class Appointment {
 	@GeneratedValue(generator = "myAppSeq")
 	private int aId;
 	
-	@NotNull(message = "is required")
+	
 	@Size(min = 1, max = 25)
 	@Column(unique=true)
 	private String bookingNo;

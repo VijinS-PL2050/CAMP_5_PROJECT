@@ -1,10 +1,11 @@
 package com.global.entity;
 
 import java.time.LocalDate;
-import java.util.List;
 
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -15,6 +16,7 @@ import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 
@@ -27,16 +29,17 @@ public class DoctorDetails {
 	@GeneratedValue(generator = "myDocSeq")
 	private int doId;
 	
-	@NotNull(message = "is required")
+	
 	@Size(min = 1, max = 25)
 	@Column(unique=true)
 	private String doctorId;
 	
 	@NotNull(message = "is required")
-	@Size(min = 1, max = 25)
+	@Size(min = 1, max = 25)	
 	private String doctorName;
 	
 	@NotNull(message = "is required")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private LocalDate dateOfBirth;
 	
 	@NotNull(message = "is required")
@@ -70,13 +73,13 @@ public class DoctorDetails {
 	@Column(unique=true)
 	private String email;
 	
-	@NotNull(message = "is required")
-	@Size(min = 1, max = 25)
-	private String specialization;
+	
+	//@NotNull(message = "is required")
+	//@Size(min = 1, max = 50)
+	private double consultationFee;
 	
 	@NotNull(message = "is required")
-	@Size(min = 1, max = 50)
-	private double consultationFee;
+	private int noOfToken;
 	
 	@NotNull(message = "is required")
 	@Size(min = 1, max = 25)
@@ -92,7 +95,7 @@ public class DoctorDetails {
 	private User user;
 	
 	
-	@OneToMany(mappedBy = "doctorDetails")
+	@OneToMany(mappedBy = "doctorDetails",fetch = FetchType.EAGER)
 	private List<Appointment> appointment;
 
 
@@ -212,16 +215,6 @@ public class DoctorDetails {
 	}
 
 
-	public String getSpecialization() {
-		return specialization;
-	}
-
-
-	public void setSpecialization(String specialization) {
-		this.specialization = specialization;
-	}
-
-
 	public double getConsultationFee() {
 		return consultationFee;
 	}
@@ -257,6 +250,16 @@ public class DoctorDetails {
 	}
 
 
+	public int getNoOfToken() {
+		return noOfToken;
+	}
+
+
+	public void setNoOfToken(int noOfToken) {
+		this.noOfToken = noOfToken;
+	}
+
+
 	public void setUser(User user) {
 		this.user = user;
 	}
@@ -277,7 +280,7 @@ public class DoctorDetails {
 		return "DoctorDetails [doId=" + doId + ", doctorId=" + doctorId + ", doctorName=" + doctorName
 				+ ", dateOfBirth=" + dateOfBirth + ", gender=" + gender + ", bloodGroup=" + bloodGroup + ", phoneno="
 				+ phoneno + ", address=" + address + ", adharNo=" + adharNo + ", qualification=" + qualification
-				+ ", email=" + email + ", specialization=" + specialization + ", consultationFee=" + consultationFee
+				+ ", email=" + email + ", consultationFee=" + consultationFee+",noOfToken="+noOfToken
 				+ ", IsActive=" + IsActive + ", doctorDepartment=" + doctorDepartment + ", user=" + user
 				+ ", appointment=" + appointment + "]";
 	}
