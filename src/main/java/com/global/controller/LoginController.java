@@ -48,7 +48,7 @@ public class LoginController {
 			System.out.println("ROle is 2");
 			session.setAttribute("username", username);
 			session.setAttribute("roleId", user.getRole().getRoleId());
-			return "NewFile";
+			return "receptoinist-dash";
 		}
 		return "page-not-found";
 	}

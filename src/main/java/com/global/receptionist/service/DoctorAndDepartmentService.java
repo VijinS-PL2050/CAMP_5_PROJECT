@@ -44,4 +44,10 @@ public class DoctorAndDepartmentService implements IDoctorAndDepartmentService {
 		
 	}
 
+	@Override
+	public List<DoctorDetails> allDoctorDetailss() {
+		// TODO Auto-generated method stub
+		return doctorAndDepartmentRepo.allDoctorDetailss();
+	}
+
 }

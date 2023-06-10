@@ -27,9 +27,6 @@ public class BillAppointmentRepo implements IBillAppointmentRepo {
 	@Override
 	@Transactional
 	public void insertUpdateBillAppoinment(BillAppoinment billAppoinment) {
-		System.out.println(billAppoinment.getAppointment().getaId());
-		System.out.println(billAppoinment.getBillDate());
-		System.out.println(billAppoinment.getBillAmount());
 		Session currentSeesion = session.getCurrentSession();
 		currentSeesion.saveOrUpdate(billAppoinment);
 		billAppoinment.setBillAppoinmentNo("BL"+billAppoinment.getBaId());
@@ -87,9 +84,12 @@ public class BillAppointmentRepo implements IBillAppointmentRepo {
 
 	@Override
 	@Transactional
-	public BillAppoinment getBillAppoinment(String billNo) {
-		// TODO Auto-generated method stub
-		return null;
+	public BillAppoinment getLastBillAppoinment() {
+		Session currentSeesion = session.getCurrentSession();
+		Query<BillAppoinment> query = currentSeesion.createQuery("FROM BillAppoinment WHERE isActive=:act order by baId DESC", BillAppoinment.class);
+		query.setParameter("act", "true");
+		query.setMaxResults(1);
+		return query.uniqueResult();
 	}
 
 }

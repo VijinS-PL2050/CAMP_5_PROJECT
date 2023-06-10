@@ -3,6 +3,7 @@ package com.global.entity;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -66,6 +67,17 @@ public class PatientRecords {
 	
 	@OneToMany(mappedBy = "patientRecords")
 	private List<Appointment> appointment;
+	
+	@OneToMany(mappedBy = "patientRecords", cascade=CascadeType.ALL)
+	private List<BillAppoinment> billAppoinment;
+
+	public List<BillAppoinment> getBillAppoinment() {
+		return billAppoinment;
+	}
+
+	public void setBillAppoinment(List<BillAppoinment> billAppoinment) {
+		this.billAppoinment = billAppoinment;
+	}
 
 	public PatientRecords() {
 		super();

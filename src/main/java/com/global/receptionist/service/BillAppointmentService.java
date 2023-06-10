@@ -60,9 +60,9 @@ public class BillAppointmentService implements IBillAppointmentService {
 	}
 
 	@Override
-	public BillAppoinment getBillAppoinment(String billNo) {
+	public BillAppoinment getLastBillAppoinment() {
 		
-		return repo.getBillAppoinment(billNo);
+		return repo.getLastBillAppoinment();
 	}
 
 }

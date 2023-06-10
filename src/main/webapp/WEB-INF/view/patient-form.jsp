@@ -20,7 +20,7 @@ body {
 	justify-content: flex-end;
 	align-items: center;
 	margin-top: 20px;
-	margin-right: 100px;
+	margin-right: 170px;
 }
 
 .logo {
@@ -33,7 +33,7 @@ body {
 	border-radius: 5px;
 	padding: 20px;
 	margin: 20px auto;
-	max-width: 400px;
+	max-width: 800px;
 	color: #000000;
 }
 
@@ -47,6 +47,16 @@ fieldset {
 	margin-bottom: 20px;
 }
 
+.fieldset-container {
+	display: flex;
+	justify-content: space-between;
+}
+
+.fieldset-container fieldset {
+	flex: 1;
+	margin-right: 20px;
+}
+
 label {
 	display: flex;
 	justify-content: flex-start;
@@ -56,8 +66,15 @@ label {
 	width: 50%;
 }
 
-select, input[type="datetime-local"], input[type="submit"] {
+select, input[type="datetime-local"], input[type="submit"], input[type="text"],
+	input[type="number"] {
 	width: 100%;
+	padding: 8px;
+	border: 1px solid #000000;
+	border-radius: 5px;
+}
+input[type="submit"]{
+	width: 20%;
 	padding: 8px;
 	border: 1px solid #000000;
 	border-radius: 5px;
@@ -85,84 +102,94 @@ select, input[type="datetime-local"], input[type="submit"] {
 			title="Image from freepnglogos.com"> <img
 			src="https://www.freepnglogos.com/uploads/medical-logo-png-5.png"
 			width="200" alt="medical logo png" /></a>
-		<h2 class="logo">
+		<h1 class="logo">
 			Global Health <br> Hospitals
-		</h2>
+		</h1>
 	</div>
 	<div id="container">
-		<h2>INSERT PATIENT RECORD</h2>
+		<h2>INSERT PATIENT</h2>
 		<f:form action="insertPatientRecord" modelAttribute="patient"
-			method="post">
+			method="post" onsubmit="return validateForm()">
 			<f:hidden path="pId" />
 			<f:hidden path="mrNo" />
-			<fieldset>
-				<c:if test="${patient.patientName == null}">
-					<label>NAME :</label>
-					<f:input path="patientName" placeholder="Enter first name"
-						pattern="[A-Za-z][A-Za-z\s]{3,30}[A-Za-z]$" required="true" />
-				</c:if>
-				<c:if test="${not empty patient.patientName}">
-					<label>NAME :</label>
-					<f:input path="patientName" disabled="true" />
-				</c:if>
-			</fieldset>
-			<fieldset>
-				<label>PHONE :</label>
-				<f:input path="patientPhone" />
-			</fieldset>
-			<fieldset>
-				<label>ADDRESS :</label>
-				<f:input path="patientAddress" />
-			</fieldset>
-			<fieldset>
-				<c:if test="${patient.patientAge == 0}">
-					<label>AGE :</label>
-					<f:input type="number" path="patientAge" />
-				</c:if>
-				<c:if test="${patient.patientAge>0}">
-					<label>AGE :</label>
-					<f:input type="number" path="patientAge" disabled="true" />
-				</c:if>
-			</fieldset>
-			<fieldset>
-				<c:if test="${patient.patientGender == null}">
-					<label>GENDER :</label>
-					<f:select path="patientGender">
-						<f:option value="MALE">MALE</f:option>
-						<f:option value="FEMALE">FEMALE</f:option>
-						<f:option value="OTHER">OTHER</f:option>
-					</f:select>
-				</c:if>
-				<c:if test="${not empty patient.patientGender}">
-					<label>GENDER :</label>
-					<f:input path="patientGender" disabled="true" />
-				</c:if>
-			</fieldset>
-			<fieldset>
-				<c:if test="${patient.patientBlood == null}">
-					<label>BLOOD GROUP :</label>
-					<f:select path="patientBlood">
-						<f:option value="O+">O+</f:option>
-						<f:option value="O-">O-</f:option>
-						<f:option value="A+">A+</f:option>
-						<f:option value="A-">A-</f:option>
-						<f:option value="B+">B+</f:option>
-						<f:option value="B-">B-</f:option>
-						<f:option value="AB+">AB+</f:option>
-						<f:option value="AB-">AB-</f:option>
+			<div class="fieldset-container">
+				<fieldset>
+					<c:if test="${patient.patientName == null}">
+						<label>NAME :</label>
+						<f:input path="patientName" placeholder="Enter patient name"
+							pattern="[A-Za-z][A-Za-z\s]{3,30}[A-Za-z]$" required="true" />
+					</c:if>
+					<c:if test="${not empty patient.patientName}">
+						<f:hidden path="patientName" />
+						<label>NAME :</label>
+						<f:input path="patientName" disabled="true" />
+					</c:if>
+				</fieldset>
+				<fieldset>
+					<label>PHONE :</label>
+					<f:input path="patientPhone" placeholder="Enter patient phone" pattern="^(\+91[\-\s]?)?0?(91)?[789]\d{9}$" required="true"/>
+				</fieldset>
+			</div>
+			<div class="fieldset-container">
+				<fieldset>
+					<label>ADDRESS :</label>
+					<f:input path="patientAddress" pattern="[A-Za-z\s]{4,}$"  required="true"/>
+				</fieldset>
+				<fieldset>
+					<c:if test="${patient.patientAge == 0}">
+						<label>AGE :</label>
+						<f:input type="number" path="patientAge" min="0" max="100"/>
+					</c:if>
+					<c:if test="${patient.patientAge>0}">
+						<f:hidden path="patientAge" />
+						<label>AGE :</label>
+						<f:input type="number" path="patientAge" disabled="true" />
+					</c:if>
+				</fieldset>
+			</div>
+			<div class="fieldset-container">
+				<fieldset>
+					<c:if test="${patient.patientGender == null}">
+						<label>GENDER :</label>
+						<f:select path="patientGender" name="dropdownList"
+					id="dropdownList">
+						<f:option value="">-- Select an option --</f:option>
+							<f:option value="MALE">MALE</f:option>
+							<f:option value="FEMALE">FEMALE</f:option>
+							<f:option value="OTHER">OTHER</f:option>
+						</f:select>
+					</c:if>
+					<c:if test="${not empty patient.patientGender}">
+						<f:hidden path="patientGender" />
+						<label>GENDER :</label>
+						<f:input path="patientGender" disabled="true" />
+					</c:if>
+				</fieldset>
+				<fieldset>
+					<c:if test="${patient.patientBlood == null}">
+						<label>BLOOD GROUP :</label>
+						<f:select path="patientBlood" name="dropdownLists"
+					id="dropdownLists">
+						<f:option value="">-- Select an option --</f:option>
+							<f:option value="O+">O+</f:option>
+							<f:option value="O-">O-</f:option>
+							<f:option value="A+">A+</f:option>
+							<f:option value="A-">A-</f:option>
+							<f:option value="B+">B+</f:option>
+							<f:option value="B-">B-</f:option>
+							<f:option value="AB+">AB+</f:option>
+							<f:option value="AB-">AB-</f:option>
 
-					</f:select>
-				</c:if>
-				<c:if test="${not empty patient.patientBlood}">
-					<label>BLOOD GROUP :</label>
-					<f:input path="patientBlood" disabled="true" />
-				</c:if>
-			</fieldset>
-			<fieldset>
-				<f:button>SUMIT</f:button>
-			</fieldset>
-
-
+						</f:select>
+					</c:if>
+					<c:if test="${not empty patient.patientBlood}">
+						<f:hidden path="patientBlood" />
+						<label>BLOOD GROUP :</label>
+						<f:input path="patientBlood" disabled="true" />
+					</c:if>
+				</fieldset>
+			</div>
+			<input type="submit" value="SUBMIT" class="btn-submit" />
 		</f:form>
 
 		<p>
@@ -174,4 +201,26 @@ select, input[type="datetime-local"], input[type="submit"] {
 
 
 </body>
+<script>
+	function validateForm() {
+		var dropdown = document.getElementById("dropdownList");
+		var selectedValue = dropdown.value;
+		
+		var dropdowns = document.getElementById("dropdownLists");
+		var selectedValues = dropdowns.value;
+
+		if (selectedValue === "") {
+			alert("Please Select Gender from the dropdown.");
+			return false; // Prevent form submission
+		}
+		if (selectedValues === "") {
+			alert("Please Select Blood Group option from the dropdown.");
+			return false; // Prevent form submission
+		}
+
+		// Additional validation logic if needed
+
+		return true; // Allow form submission
+	}
+</script>
 </html>

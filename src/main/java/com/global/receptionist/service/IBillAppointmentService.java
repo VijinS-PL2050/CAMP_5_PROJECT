@@ -12,6 +12,6 @@ public interface IBillAppointmentService {
 	public List<BillAppoinment> searchByBillAppoinment(String billNo);
 	public void deleteBillAppoinment(BillAppoinment billAppoinment);
 	public BillAppoinment searchByaId(int id);
-	public BillAppoinment getBillAppoinment(String bookNo);
+	public BillAppoinment getLastBillAppoinment();
 
 }

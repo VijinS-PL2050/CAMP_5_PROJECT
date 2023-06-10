@@ -7,10 +7,17 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>WELCOME GHC</h1>
-	<a href="patient/listPatientRecords">List Patient</a>
-	<a href="patient/showFormForPatientRecord">Add Patient</a>
-	<a href="appointment/showFormForAppointment">BOOK APPOINTMENT</a>
 	<a href="login/user">LOGIN</a>
+	<a
+		href="${pageContext.request.contextPath}/patient/showFormForPatientRecord">ADD
+		PATIENT</a>
+	<!--  <a href="${pageContext.request.contextPath}/appointment/showFormForAppointment">ADD APPOINTMENT</a>-->
+	<a href="${pageContext.request.contextPath}/patient/listPatientRecords">LIST
+		PATIENT</a>
+	<a
+		href="${pageContext.request.contextPath}/appointment/listAppointmentRecords">LIST
+		APPOINTMENT</a>
+	<a href="${pageContext.request.contextPath}/token/listTokenRecords">LIST
+		TOKEN</a>
 </body>
 </html>

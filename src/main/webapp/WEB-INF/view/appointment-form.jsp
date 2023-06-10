@@ -1,15 +1,7 @@
-<%@page import="org.hibernate.internal.build.AllowSysOut"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="java.util.List"%>
-<%@ page import="com.global.entity.DoctorDetails"%>
-<%@ page
-	import="com.global.receptionist.service.IDoctorAndDepartmentService"%>
-<%@ page
-	import="com.global.receptionist.repository.DoctorAndDepartmentRepo"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +20,7 @@ body {
 	justify-content: flex-end;
 	align-items: center;
 	margin-top: 20px;
-	margin-right: 100px;
+	margin-right: 170px;
 }
 
 .logo {
@@ -41,7 +33,7 @@ body {
 	border-radius: 5px;
 	padding: 20px;
 	margin: 20px auto;
-	max-width: 400px;
+	max-width: 600px;
 	color: #000000;
 }
 
@@ -64,8 +56,15 @@ label {
 	width: 50%;
 }
 
-select, input[type="datetime-local"], input[type="submit"] {
+select, input[type="datetime-local"] {
 	width: 100%;
+	padding: 8px;
+	border: 1px solid #000000;
+	border-radius: 5px;
+}
+
+input[type="submit"] {
+	width: 20%;
 	padding: 8px;
 	border: 1px solid #000000;
 	border-radius: 5px;
@@ -87,14 +86,6 @@ select, input[type="datetime-local"], input[type="submit"] {
 }
 </style>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-
-
-
-
-
-
 </head>
 <body>
 	<div class="icon">
@@ -102,66 +93,52 @@ select, input[type="datetime-local"], input[type="submit"] {
 			title="Image from freepnglogos.com"> <img
 			src="https://www.freepnglogos.com/uploads/medical-logo-png-5.png"
 			width="200" alt="medical logo png" /></a>
-		<h2 class="logo">
+		<h1 class="logo">
 			Global Health <br> Hospitals
-		</h2>
+		</h1>
 	</div>
 	<div id="container">
 		<h2>APPOINTMENT</h2>
 		<f:form action="insertAppointment" modelAttribute="appointment"
-			method="post">
+			method="post" onsubmit="return validateForm()">
 			<f:hidden path="aId" />
 			<f:hidden path="bookingNo" />
 			<f:hidden path="patientRecords.pId" />
-
-
-
-
-
 			<fieldset>
-				<label>DEPARTMENT:</label>
-				<f:select path="doctorDepartment.dId" name="departmentDropdown"
-					id="departmentDropdown">
+				<label>NAME : <c:out value="${sessionScope.name}" /></label> <label>REG
+					NO : <c:out value="${sessionScope.mrno}" />
+				</label> <label>REG DATE : <c:out value="${sessionScope.date}" /></label>
+			</fieldset>
+			<fieldset>
+				<label>DEPARTMENT :</label>
+				<f:select path="doctorDepartment.dId" name="dropdownList"
+					id="dropdownList">
 					<option value="">-- Select an option --</option>
 					<c:forEach items="${department}" var="dept">
-						<option value="${dept.dId}">${dept.departmentId}
+						<option value="${dept.dId}">||${dept.departmentId}||
 							${dept.departmentName}</option>
 					</c:forEach>
 				</f:select>
 			</fieldset>
 
 			<fieldset>
-				<label>DOCTOR:</label> <select name="doctorDropdown"
-					id="doctorDropdown">
+				<label>DOCTOR :</label>
+				<f:select path="doctorDetails.doId" name="dropdownList"
+					id="dropdownList">
 					<option value="">-- Select an option --</option>
-					<%
-					String selectedDepartment = request.getParameter("departmentDropdown");
-					if (selectedDepartment != null && !selectedDepartment.isEmpty()) {
-						int departmentId = Integer.parseInt(selectedDepartment);
-						DoctorAndDepartmentRepo doctorAndDepartmentService = new DoctorAndDepartmentRepo();
-						List<DoctorDetails> doctors = doctorAndDepartmentService.getAllDoctorDetailss(departmentId);
-						for (DoctorDetails doc : doctors) {
-					%>
-					<option value="<%=doc.getDoId()%>"><%=doc.getDoctorName()%></option>
-					<%
-					}
-					}
-					%>
-				</select>
+					<c:forEach items="${doctor}" var="doc">
+						<option value="${doc.doId}">${doc.doctorName}||TOKEN
+							REMIAN :${doc.noOfToken} | |CONSULTATION FEE :
+							${doc.consultationFee}</option>
+					</c:forEach>
+				</f:select>
 			</fieldset>
-
-
-
-
 
 			<fieldset>
 				<label>APPOINTMENT DATE :</label>
 				<f:input type="datetime-local" path="appointmentDateTime" />
 			</fieldset>
-
-			<fieldset>
-				<input type="submit" value="SUBMIT" class="btn-submit" />
-			</fieldset>
+			<input type="submit" value="SUBMIT" class="btn-submit" />
 		</f:form>
 		<p>
 			<button
@@ -169,8 +146,20 @@ select, input[type="datetime-local"], input[type="submit"] {
 				to List Appointment</button>
 		</p>
 	</div>
-
-
-
 </body>
+<script>
+	function validateForm() {
+		var dropdown = document.getElementById("dropdownList");
+		var selectedValue = dropdown.value;
+
+		if (selectedValue === "") {
+			alert("Please select an option from the dropdown.");
+			return false; // Prevent form submission
+		}
+
+		// Additional validation logic if needed
+
+		return true; // Allow form submission
+	}
+</script>
 </html>

@@ -13,6 +13,6 @@ public interface IBillAppointmentRepo {
 	public List<BillAppoinment> searchByBillAppoinment(String billNo);
 	public void deleteBillAppoinment(BillAppoinment billAppoinment);
 	public BillAppoinment searchByaId(int id);
-	public BillAppoinment getBillAppoinment(String billNo);
+	public BillAppoinment getLastBillAppoinment();
 
 }

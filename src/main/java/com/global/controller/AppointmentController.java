@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import org.springframework.web.servlet.ModelAndView;
 
 import com.global.entity.Appointment;
@@ -69,16 +70,18 @@ public class AppointmentController {
 	}
 
 	@GetMapping("/showFormForAppointment")
-	public ModelAndView showFormForAppointment(@RequestParam("patientId") int pId) {
+	public ModelAndView showFormForAppointment(@RequestParam("patientId") int pId,HttpSession session) {
 		forAppointment.setPatientRecords(patientService.searchById(pId));
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		List<DoctorDepartment> listDoctorDepartments = doctorAndDepartmentService.getAllDepartment();
-		//List<DoctorDetails> listDoctorDetails = doctorAndDepartmentService.getAllDoctorDetailss();
-
+		List<DoctorDetails> listDoctorDetails = doctorAndDepartmentService.allDoctorDetailss();
+		session.setAttribute("name", patientService.searchById(pId).getPatientName());
+		session.setAttribute("mrno", patientService.searchById(pId).getMrNo());
+		session.setAttribute("date", patientService.searchById(pId).getRegistrationDate());
 		modelMap.put("appointment", forAppointment);
 		modelMap.put("department", listDoctorDepartments);
-		modelMap.put("patient", patientService.searchById(pId));
-
+		modelMap.put("doctor", listDoctorDetails);
+        
 		return new ModelAndView("appointment-form", modelMap);
 
 	}
@@ -86,9 +89,6 @@ public class AppointmentController {
 	@GetMapping("/getDoctors")
     @ResponseBody
     public List<DoctorDetails> getDoctors(@RequestParam("departmentId") int dId) {
-		
-		System.out.println("hi im in");
-        // Call the doctorService to fetch the doctors based on the departmentId
         List<DoctorDetails> doctors = doctorAndDepartmentService.getAllDoctorDetailss(dId);
         for(DoctorDetails a : doctors) {
         	System.out.println(a.getDoctorName());
@@ -101,13 +101,10 @@ public class AppointmentController {
 	public String insertAppointment(@ModelAttribute("appointment") Appointment forAppointment) {
 
 		appointmentService.insertUpdateAppointment(forAppointment);
-		System.out.println(forAppointment.getaId());
-		System.out.println(forAppointment.getBookingNo());
 		if (forAppointment.getBillAppoinment() == null) {
-			System.out.println(" i m in");
 			generateToken(forAppointment);
 			generateBill(forAppointment);
-			return "redirect:/appointment/listAppointmentRecords";
+			return "redirect:/appointment/KKKKK";
 		} else {
 			return "redirect:/appointment/listAppointmentRecords";
 		}
@@ -125,11 +122,11 @@ public class AppointmentController {
 
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		List<DoctorDepartment> listDoctorDepartments = doctorAndDepartmentService.getAllDepartment();
-		//List<DoctorDetails> listDoctorDetails = doctorAndDepartmentService.getAllDoctorDetailss();
+		List<DoctorDetails> listDoctorDetails = doctorAndDepartmentService.allDoctorDetailss();
 
 		modelMap.put("appointment", appointmentService.searchByaId(theId));
 		modelMap.put("department", listDoctorDepartments);
-		//modelMap.put("doctor", listDoctorDetails);
+		modelMap.put("doctor", listDoctorDetails);
 
 		return new ModelAndView("appointment-form", modelMap);
 
@@ -181,7 +178,7 @@ public class AppointmentController {
 		if (appointDate.isAfter(noww) && appointDate.isBefore(todayAt6)) {
 			if (maxToken > 0) {
 				tokenGenarator.setTokenTime(appointment.getAppointmentDateTime().plusMinutes(15));
-				tokenGenarator.setTokenNo("T" + doctorId + maxToken);
+				tokenGenarator.setTokenNo("T" + doctorId + (30-maxToken));
 				tokenGenarator.setAppointment(appointment);
 				tokenGeneratorService.insertUpdateTokenGenarator(tokenGenarator);
 				doctorDetails.setNoOfToken(maxToken - 1);
@@ -191,29 +188,33 @@ public class AppointmentController {
 	}
 
 	private void generateBill(Appointment forAppoint) {
-		System.out.println(forAppoint.getBookingNo());
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 		LocalDateTime noww = LocalDateTime.parse(LocalDateTime.now().format(format), format);
 		LocalDate todayDate = LocalDate.now();
+		System.out.println(todayDate);
 		System.out.println(noww);
 		LocalDateTime appoint = forAppoint.getAppointmentDateTime();
 		System.out.println(appoint);
 		LocalDateTime appointV = forAppoint.getAppointmentValidity();
-		// System.out.println(appointV);
+		 System.out.println(appointV);
 		LocalDate patReg = patientService.searchById(forAppoint.getPatientRecords().getpId()).getRegistrationDate();
-		// System.out.println(pRed);
+		System.out.println(patReg);
 		LocalDate patVal = patientService.searchById(forAppoint.getPatientRecords().getpId()).getValidityDate();
 		// System.out.println(pVal);
-		int id = forAppoint.getPatientRecords().getpId();
-		System.out.println(id);
+		int pId = forAppoint.getPatientRecords().getpId();
+		int doId = forAppoint.getDoctorDetails().getDoId();
+		double fee=doctorAndDepartmentService.getDoctorDetails(doId).getConsultationFee();
+		double sum = 0;
+		System.out.println(pId);
 		billAppoinment.setAppointment(forAppoint);
 		System.out.println(billAppoinment.getAppointment().getaId());
 		billAppoinment.setBillDate(noww);
 		System.out.println("kjhgf"+billAppoinment.getBillDate());
-		double sum = 0;
+		
 		if (patReg.equals(todayDate)) {
 			System.out.println(" i m in 1st if");
-			System.out.println( forAppoint.getDoctorDetails().getConsultationFee());
+			System.out.println(forAppoint.getDoctorDetails().getDoId());
+			System.out.println( "jhgfd"+doctorAndDepartmentService.getDoctorDetails(forAppoint.getDoctorDetails().getDoId()).getConsultationFee());
 			sum = 150 + forAppoint.getDoctorDetails().getConsultationFee();
 
 		} else if (patVal.isBefore(todayDate) && appointV.isBefore(noww)) {
