@@ -178,9 +178,20 @@ public class MedicineStockDao implements IMedicineStockDao {
 	public List<MedicinePrescription> getbill(int theId) {
 		Session currentSession = sessionFactory.getCurrentSession();
 		Query<MedicinePrescription> query=currentSession.createQuery("FROM MedicinePrescription WHERE isActive=:act AND diId=:dI", MedicinePrescription.class);
-		query.setParameter("act", "true");
+		query.setParameter("act", "false");
 		query.setParameter("dI", theId);
+		
 		return query.getResultList();
+	}
+	@Override
+	@Transactional
+	public void getbillDisable(int theId) {
+		Session currentSession = sessionFactory.getCurrentSession();
+
+		// Update isActive status
+		MedicinePrescription medicine = currentSession.get(MedicinePrescription.class, theId);
+		medicine.setIsActive("false"); // Assuming isActive is a boolean property
+		currentSession.saveOrUpdate(medicine);
 	}
 	}
 

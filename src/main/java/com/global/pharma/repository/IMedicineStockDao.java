@@ -29,6 +29,8 @@ public interface IMedicineStockDao {
 	
 	public List<MedicinePrescription> getbill();
 	public List<MedicinePrescription> getbill(int theId);
+
+	public void getbillDisable(int theId);
 }
 
 

@@ -142,5 +142,11 @@ public class MedicineStockController {
 
 		return "list-bills";
 	
-}}
+}
+	@GetMapping("/Disablebill")
+	public String Disablebill(@RequestParam("mpId") int theId, Model theModel) {
+		System.out.println(theId);
+		medicineService.getmedicineDisable(theId);
+		return "redirect:/MedicinesStock/listbills";
+	}}
 	

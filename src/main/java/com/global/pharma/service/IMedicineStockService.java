@@ -27,5 +27,6 @@ public interface IMedicineStockService {
 	public List<BillMedicine> getveiwprisccrip(int theId);
 	public List<MedicinePrescription> getbill();
 	public List<MedicinePrescription> getbill(int theId);
+	//public void getbillDisable(int theId);
 }
  

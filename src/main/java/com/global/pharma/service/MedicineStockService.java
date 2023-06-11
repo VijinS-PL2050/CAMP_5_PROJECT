@@ -101,6 +101,13 @@ public class MedicineStockService  implements IMedicineStockService{
 	public List<MedicinePrescription> getbill(int theId) {
 		// TODO Auto-generated method stub
 		return  medicineDemo.getbill(theId);
+		
+	}
+
+
+public void getbillDisable(int theId) {
+		// TODO Auto-generated method stub
+		medicineDemo.getbill(theId);
 	}
 
 	

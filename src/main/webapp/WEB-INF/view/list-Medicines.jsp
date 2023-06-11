@@ -163,8 +163,9 @@ a {
 			<!-- loop over and print our customers -->
 			<c:forEach var="tempprescription" items="${MedicinePrescriptions}">
 				<c:url var="Billink" value="/MedicinesStock/listbills">
-
-					<c:param name="mpId" value="${tempprescription.diagnosis.diId }" />
+				<c:param name="mpId" value="${tempprescription.diagnosis.diId }" />
+                 
+					
 				</c:url>
 				<tr>
 					<td><c:out value="${tempprescription.medicinePrescriptionId }" /></td>
