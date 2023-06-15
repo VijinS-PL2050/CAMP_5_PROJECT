@@ -85,7 +85,27 @@ input[type="submit"] {
 	background-color: #4caf50;
 }
 </style>
-
+<script>
+	// Handle back button behavior
+	if (window.history && window.history.pushState) {
+		window.history.replaceState(null, null, window.location.href);
+		window.history.pushState(null, null, window.location.href);
+		window.onpopstate = function(event) {
+			window.history.go(1);
+		};
+	}
+	function logout() {
+		// Perform logout action here (e.g., invalidate session or clear session attributes)
+		// Redirect to the login page
+		window.location.href = "${pageContext.request.contextPath}/login/logout";
+	}
+	function updateDateTime() {
+		var now = new Date();
+		var datetime = now.toLocaleString();
+		document.getElementById("datetime").innerHTML = datetime;
+	}
+	setInterval(updateDateTime, 1000); // Update every second
+</script>
 </head>
 <body>
 	<div class="icon">
@@ -129,14 +149,15 @@ input[type="submit"] {
 					<c:forEach items="${doctor}" var="doc">
 						<option value="${doc.doId}">${doc.doctorName}||TOKEN
 							REMIAN :${doc.noOfToken} | |CONSULTATION FEE :
-							${doc.consultationFee}</option>
+							${doc.consultationFee}||DEPART : ${doc.doctorDepartment.departmentName}</option>
 					</c:forEach>
 				</f:select>
 			</fieldset>
 
 			<fieldset>
 				<label>APPOINTMENT DATE :</label>
-				<f:input type="datetime-local" path="appointmentDateTime" />
+				<f:input type="datetime-local" path="appointmentDateTime"
+					min="2023-06-11T00:00" max="2023-06-18T00:00" />
 			</fieldset>
 			<input type="submit" value="SUBMIT" class="btn-submit" />
 		</f:form>
@@ -144,6 +165,7 @@ input[type="submit"] {
 			<button
 				onclick="window.location.href='${pageContext.request.contextPath}/appointment/listAppointmentRecords'">Back
 				to List Appointment</button>
+			<button onclick="goBack()">Go Back</button>
 		</p>
 	</div>
 </body>
@@ -160,6 +182,9 @@ input[type="submit"] {
 		// Additional validation logic if needed
 
 		return true; // Allow form submission
+	}
+	function goBack() {
+		window.history.back();
 	}
 </script>
 </html>

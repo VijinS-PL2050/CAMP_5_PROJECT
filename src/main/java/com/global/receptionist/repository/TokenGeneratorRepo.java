@@ -10,6 +10,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.global.entity.BillAppoinment;
 import com.global.entity.PatientRecords;
 import com.global.entity.TokenGenarator;
 
@@ -94,8 +95,24 @@ public class TokenGeneratorRepo implements ITokenGeneratorRepo {
 
 	@Override
 	@Transactional
-	public TokenGenarator getTokenGenarator(String tokenNo) {
+	public TokenGenarator getTokenGenarator(int appointId) {
 
+		return null;
+	}
+
+	@Override
+	@Transactional
+	public TokenGenarator getLastToken() {
+		Session currentSeesion = session.getCurrentSession();
+		Query<TokenGenarator> query = currentSeesion.createQuery("FROM TokenGenarator WHERE isActive=:act order by tId DESC", TokenGenarator.class);
+		query.setParameter("act", "true");
+		query.setMaxResults(1);
+		return query.uniqueResult();
+	}
+
+	@Override
+	public TokenGenarator getTokenGenarator(String tokenNo) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

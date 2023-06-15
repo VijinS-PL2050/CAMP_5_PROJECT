@@ -159,19 +159,21 @@ input[type="button"] {
 				</label>
 			</fieldset>
 			<fieldset>
-				<label style="padding-left: 200px"> </label> <label
-					style="padding-left: 200px"></label>
+				<c:if test="${token.tId != null}">
+					<label style="padding-left: 200px">TOKEN NO: <c:out
+							value="${token.tokenNo}" /></label>
+					<label style="padding-left: 200px"></label>
+				</c:if>
 			</fieldset>
 		</div>
 		<div class="fieldset-container">
 			<fieldset>
-				<label>CONSULTATION FEE :</label>
-				 <label>TOTAL BILL :</label>
+				<label>CONSULTATION FEE :</label> <label>TOTAL BILL :</label>
 			</fieldset>
 			<fieldset>
-			<label style="padding-left: 200px"><c:out
-						value="${doctor.consultationFee}" /></label>
 				<label style="padding-left: 200px"><c:out
+						value="${doctor.consultationFee}" /></label> <label
+					style="padding-left: 200px"><c:out
 						value="${billAppoint.billAmount}" /></label>
 			</fieldset>
 		</div>
@@ -179,14 +181,18 @@ input[type="button"] {
 			onclick="print_current_page()" />
 		<p>
 			<button
-				onclick="window.location.href='${pageContext.request.contextPath}/patient/listPatientRecords">Back
-				to List Patients</button>
+				onclick="window.location.href='${pageContext.request.contextPath}/patient/listPatientRecords'">Back
+				To List Patients</button>
+			<button onclick="goBack()">Go Back</button>
 		</p>
 	</div>
 </body>
 <script type="text/javascript">
 	function print_current_page() {
 		window.print();
+	}
+	function goBack() {
+		window.history.go(-2);
 	}
 </script>
 </html>

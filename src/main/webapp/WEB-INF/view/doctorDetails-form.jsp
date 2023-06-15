@@ -76,15 +76,8 @@ input[type="text"] {
 	border-radius: 5px;
 }
 
-select, input[type="date"] {
+select, input[type="date"], input[type="submit"] {
 	width: 100%;
-	padding: 8px;
-	border: 1px solid #000000;
-	border-radius: 5px;
-}
-
-input[type="submit"] {
-	width: 20%;
 	padding: 8px;
 	border: 1px solid #000000;
 	border-radius: 5px;
@@ -125,43 +118,92 @@ input[type="submit"] {
 	<div id="container">
 		<h2 align=center>Add DoctorDetails</h2>
 		<f:form action="saveDoctorDetails" modelAttribute="DoctorDetails"
-			method="post">
+			method="post" onsubmit="return validateForm()">
 			<f:hidden path="doId" />
 			<f:hidden path="doctorId" />
 			<f:hidden path="user.uId" />
 
 			<div class="fieldset-container">
 				<fieldset>
-					<label for="doctorName">DOCTOR NAME:</label>
-					<f:input path="doctorName" id="doctorName" />
+
+					<c:if test="${DoctorDetails.doctorName == null}">
+
+						<label>DOCTOR NAME :</label>
+
+						<f:input path="doctorName" placeholder="Enter doctor name"
+							pattern="[A-Za-z][A-Za-z\s]{3,30}[A-Za-z]$" required="true" />
+
+					</c:if>
+					<c:if test="${not empty DoctorDetails.doctorName}">
+						<f:hidden path="doctorName" />
+						<label>DOCTOR NAME :</label>
+						<f:input path="doctorName" disabled="true" />
+					</c:if>
+
 				</fieldset>
 				<fieldset>
-					<label for="dateOfBirth">DATE OF BIRTH:</label>
-					<f:input type="date" path="dateOfBirth" id="dateOfBirth" />
+
+					<c:if test="${DoctorDetails.dateOfBirth == null}">
+
+						<label>DATE OF BIRTH:</label>
+
+						<f:input type="date" path="dateOfBirth" id="dateOfBirth"
+							placeholder="Enter date of birth" min="1960-01-01" max="1998-01-01"  required="true" />
+
+					</c:if>
+					<c:if test="${not empty DoctorDetails.dateOfBirth}">
+						<f:hidden path="dateOfBirth" />
+						<label>DATE OF BIRTH:</label>
+						<f:input path="dateOfBirth" disabled="true" />
+					</c:if>
 				</fieldset>
 			</div>
 
 			<div class="fieldset-container">
 				<fieldset>
-					<label for="gender">GENDER:</label> <select id="gender"
-						name="gender">
-						<option value="MALE">MALE</option>
-						<option value="FEMALE">FEMALE</option>
-						<option value="OTHER">OTHER</option>
-					</select>
+					<c:if test="${DoctorDetails.gender == null}">
+						<label>GENDER :</label>
+						<f:select path="gender" name="dropdownList" id="dropdownList">
+							<f:option value="">-- Select an option --</f:option>
+							<f:option value="MALE">MALE</f:option>
+							<f:option value="FEMALE">FEMALE</f:option>
+							<f:option value="OTHER">OTHER</f:option>
+
+						</f:select>
+					</c:if>
+					<c:if test="${not empty DoctorDetails.gender}">
+						<f:hidden path="gender" />
+						<label>GENDER :</label>
+						<f:input path="gender" disabled="true" />
+					</c:if>
+
 				</fieldset>
 				<fieldset>
-					<label for="bloodGroup">BLOOD GROUP:</label> <select
-						id="bloodGroup" name="bloodGroup">
-						<option value="O+">O+</option>
-						<option value="O-">O-</option>
-						<option value="A+">A+</option>
-						<option value="A-">A-</option>
-						<option value="B+">B+</option>
-						<option value="B-">B-</option>
-						<option value="AB+">AB+</option>
-						<option value="AB-">AB-</option>
-					</select>
+
+					<c:if test="${DoctorDetails.bloodGroup == null}">
+						<label>BLOOD GROUP :</label>
+						<f:select path="bloodGroup" name="dropdownLists"
+							id="dropdownLists">
+							<f:option value="">-- Select an option --</f:option>
+							<f:option value="O+">O+</f:option>
+							<f:option value="O-">O-</f:option>
+							<f:option value="A+">A+</f:option>
+							<f:option value="A-">A-</f:option>
+							<f:option value="B+">B+</f:option>
+							<f:option value="B-">B-</f:option>
+							<f:option value="AB+">AB+</f:option>
+							<f:option value="AB-">AB-</f:option>
+						</f:select>
+
+					</c:if>
+
+					<c:if test="${not empty DoctorDetails.bloodGroup}">
+						<f:hidden path="bloodGroup" />
+						<label>BLOOD GROUP :</label>
+						<f:input path="bloodGroup" disabled="true" />
+
+					</c:if>
+
 				</fieldset>
 			</div>
 
@@ -180,62 +222,116 @@ input[type="submit"] {
 
 			<div class="fieldset-container">
 				<fieldset>
-					<label for="adharNo">ADHAR NO:</label>
-					<f:input path="adharNo" id="adharNo" />
+
+					<c:if test="${DoctorDetails.adharNo == null}">
+						<label>AADHAAR NO:</label>
+						<f:input path="adharNo" placeholder="Enter aadharNo "
+							pattern="^[2-9]{1}[0-9]{3}\s[0-9]{4}\s[0-9]{4}$" required="true" />
+					</c:if>
+					<c:if test="${not empty DoctorDetails.adharNo}">
+						<f:hidden path="adharNo" />
+						<label>AADHAAR NO:</label>
+						<f:input path="adharNo" disabled="true" />
+					</c:if>
 				</fieldset>
 
 				<fieldset>
-					<label for="qualification">QUALIFICATION:</label> <select
-						id="qualification" name="qualification">
-						<option value="MBBS">MBBS</option>
-						<option value="MS">MS</option>
-						<option value="MD">MD</option>
-						<option value="BAMS">BAMS</option>
-						<option value="BHMS">BHMS</option>
-						<option value="BPT">BPT</option>
-					</select>
+					<c:if test="${DoctorDetails.qualification == null}">
+						<label>QUALIFICATION:</label>
+						<f:select path="qualification" name="dropdownLists"
+							id="dropdownLists">
+							<f:option value="">-- Select an option --</f:option>
+							<option value="MBBS">MBBS</option>
+							<option value="MS">MS</option>
+							<option value="MD">MD</option>
+							<option value="BAMS">BAMS</option>
+							<option value="BHMS">BHMS</option>
+							<option value="BPT">BPT</option>
+						</f:select>
+					</c:if>
+					<c:if test="${not empty DoctorDetails.qualification}">
+						<f:hidden path="qualification" />
+						<label>QUALIFICATION:</label>
+						<f:input path="qualification" disabled="true" />
+					</c:if>
 				</fieldset>
 			</div>
 
 			<div class="fieldset-container">
 				<fieldset>
-					<label for="doctorDepartment">DEPARTMENT:</label>
-					<f:select path="doctorDepartment.dId" id="doctorDepartment">
-						<option value="">-- Select an option --</option>
-						<c:forEach items="${department}" var="dept">
-							<option value="${dept.dId}">${dept.departmentId}${dept.departmentName}</option>
-						</c:forEach>
-					</f:select>
+
+
+
+					<c:if test="${DoctorDetails.doctorDepartment == null}">
+						<label>DEPARTMENT :</label>
+						<f:select path="doctorDepartment.dId" id="doctorDepartment">
+							<option value="">-- Select an option --</option>
+							<c:forEach items="${department}" var="dept">
+								<option value="${dept.dId}">${dept.departmentId}${dept.departmentName}</option>
+							</c:forEach>
+						</f:select>
+					</c:if>
+					<c:if
+						test="${not empty DoctorDetails.doctorDepartment.departmentName}">
+						<f:hidden path="doctorDepartment.dId" />
+						<label>DEPARTMENT :</label>
+						<f:input path="doctorDepartment.departmentName" disabled="true" />
+					</c:if>
 				</fieldset>
 
 				<fieldset>
 					<label for="email">EMAIL:</label>
 					<f:input path="email" id="email" />
 				</fieldset>
-				</div>
-				
-							<div class="fieldset-container">
-							
+			</div>
+
+			<div class="fieldset-container">
+
 				<fieldset>
 					<label for="consultationFee">CONSULTATION FEE:</label>
-					<f:input path="consultationFee" id="consultationFee" />
+					<f:input path="consultationFee" min="300" max="1000" id="consultationFee" />
 				</fieldset>
 				<fieldset>
-				<label for="noOfToken">TOKENS:</label>
-					<f:input path="noOfToken" id="noOfToken" />
+					<label for="noOfToken">TOKENS:</label>
+					<f:input path="noOfToken" min="10" max="30" id="noOfToken" />
 				</fieldset>
-				</div>
+			</div>
 
 
-					<input type="submit" value="Save" class="btn-submit" /><br>
+			<input type="submit" value="Save" class="btn-submit" />
+			<br>
 		</f:form>
-		<button
-
+		<p>
+			<button
 				onclick="window.location.href='${pageContext.request.contextPath}/doctordetails/list'">Back
 				to List</button>
-		
+
+			<button onclick="goBack()">Go Back</button>
+		</p>
+
 	</div>
 
 
 </body>
+<script>
+	function validateForm() {
+		var dropdown = document.getElementById("dropdownList");
+		var selectedValue = dropdown.value;
+		var dropdowns = document.getElementById("dropdownLists");
+		var selectedValues = dropdowns.value;
+		if (selectedValue === "") {
+			alert("Please Select Gender from the dropdown.");
+			return false; // Prevent form submission
+		}
+		if (selectedValues === "") {
+			alert("Please Select Blood Group option from the dropdown.");
+			return false; // Prevent form submission
+		}
+		// Additional validation logic if needed
+		return true; // Allow form submission
+	}
+	function goBack() {
+		window.history.back();
+	}
+</script>
 </html>

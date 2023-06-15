@@ -127,7 +127,7 @@ a {
 		</h1>
 	</div>
 	<div id="container">
-	<h2>APPOINTMENT RECORDS</h2>
+		<h2>APPOINTMENT RECORDS</h2>
 		<input type="button" value="Add Patient"
 			onclick="window.location.href='${pageContext.request.contextPath}/patient/showFormForPatientRecord'">
 
@@ -139,7 +139,7 @@ a {
 		</form>
 		<form action="searchByMRNo" class="f1" method="post">
 			<fieldset>
-				<input type="text" name="patientMRNo" placeholder="Search MR NO / Booking No">
+				<input type="text" name="patientMRNo" placeholder="Search MR NO">
 				<button type="submit" class="b2">Search</button>
 			</fieldset>
 		</form>
@@ -193,15 +193,22 @@ a {
 
 		</table>
 		<p>
-		<button
-			onclick="window.location.href='${pageContext.request.contextPath}/patient/listPatientRecords'">Back
-			To List Patients</button>
-		<button
-			onclick="window.location.href='${pageContext.request.contextPath}/token/listTokenRecords'">Go To List Token</button>
-	</p>
+			<button
+				onclick="window.location.href='${pageContext.request.contextPath}/patient/listPatientRecords'">Back
+				To List Patients</button>
+			<button
+				onclick="window.location.href='${pageContext.request.contextPath}/token/listTokenRecords'">Go
+				To List Token</button>
+			<button onclick="goBack()">Go Back</button>
+		</p>
 
 	</div>
-	
+
 
 </body>
+<script type="text/javascript">
+	function goBack() {
+		window.history.back();
+	}
+</script>
 </html>

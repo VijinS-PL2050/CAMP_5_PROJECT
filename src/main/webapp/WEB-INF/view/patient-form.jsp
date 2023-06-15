@@ -73,7 +73,8 @@ select, input[type="datetime-local"], input[type="submit"], input[type="text"],
 	border: 1px solid #000000;
 	border-radius: 5px;
 }
-input[type="submit"]{
+
+input[type="submit"] {
 	width: 20%;
 	padding: 8px;
 	border: 1px solid #000000;
@@ -117,7 +118,7 @@ input[type="submit"]{
 					<c:if test="${patient.patientName == null}">
 						<label>NAME :</label>
 						<f:input path="patientName" placeholder="Enter patient name"
-							pattern="[A-Za-z][A-Za-z\s]{3,30}[A-Za-z]$" required="true" />
+							pattern="[A-Za-z][A-Za-z\s]{2,30}[A-Za-z]$" required="true" />
 					</c:if>
 					<c:if test="${not empty patient.patientName}">
 						<f:hidden path="patientName" />
@@ -127,18 +128,20 @@ input[type="submit"]{
 				</fieldset>
 				<fieldset>
 					<label>PHONE :</label>
-					<f:input path="patientPhone" placeholder="Enter patient phone" pattern="^(\+91[\-\s]?)?0?(91)?[789]\d{9}$" required="true"/>
+					<f:input path="patientPhone" placeholder="Enter patient phone"
+						pattern="^(\+91[\-\s]?)?0?(91)?[789]\d{9}$" required="true" />
 				</fieldset>
 			</div>
 			<div class="fieldset-container">
 				<fieldset>
 					<label>ADDRESS :</label>
-					<f:input path="patientAddress" pattern="[A-Za-z\s]{4,}$"  required="true"/>
+					<f:input path="patientAddress" pattern="[A-Za-z\s]{4,}$"
+						required="true" />
 				</fieldset>
 				<fieldset>
 					<c:if test="${patient.patientAge == 0}">
 						<label>AGE :</label>
-						<f:input type="number" path="patientAge" min="0" max="100"/>
+						<f:input type="number" path="patientAge" min="0" max="100" />
 					</c:if>
 					<c:if test="${patient.patientAge>0}">
 						<f:hidden path="patientAge" />
@@ -152,8 +155,8 @@ input[type="submit"]{
 					<c:if test="${patient.patientGender == null}">
 						<label>GENDER :</label>
 						<f:select path="patientGender" name="dropdownList"
-					id="dropdownList">
-						<f:option value="">-- Select an option --</f:option>
+							id="dropdownList">
+							<f:option value="">-- Select an option --</f:option>
 							<f:option value="MALE">MALE</f:option>
 							<f:option value="FEMALE">FEMALE</f:option>
 							<f:option value="OTHER">OTHER</f:option>
@@ -169,8 +172,8 @@ input[type="submit"]{
 					<c:if test="${patient.patientBlood == null}">
 						<label>BLOOD GROUP :</label>
 						<f:select path="patientBlood" name="dropdownLists"
-					id="dropdownLists">
-						<f:option value="">-- Select an option --</f:option>
+							id="dropdownLists">
+							<f:option value="">-- Select an option --</f:option>
 							<f:option value="O+">O+</f:option>
 							<f:option value="O-">O-</f:option>
 							<f:option value="A+">A+</f:option>
@@ -194,8 +197,9 @@ input[type="submit"]{
 
 		<p>
 			<button
-				onclick="window.location.href='${pageContext.request.contextPath}/patient/listPatientRecords">Back
-				to List Patients</button>
+				onclick="window.location.href='${pageContext.request.contextPath}/patient/listPatientRecords'">Back
+				To List Patients</button>
+			<button onclick="goBack()">Go Back</button>
 		</p>
 	</div>
 
@@ -205,7 +209,7 @@ input[type="submit"]{
 	function validateForm() {
 		var dropdown = document.getElementById("dropdownList");
 		var selectedValue = dropdown.value;
-		
+
 		var dropdowns = document.getElementById("dropdownLists");
 		var selectedValues = dropdowns.value;
 
@@ -221,6 +225,9 @@ input[type="submit"]{
 		// Additional validation logic if needed
 
 		return true; // Allow form submission
+	}
+	function goBack() {
+		window.history.back();
 	}
 </script>
 </html>

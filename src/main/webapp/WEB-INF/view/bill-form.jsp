@@ -80,7 +80,7 @@ input[type="submit"] {
 }
 
 input[type="button"] {
-    margin-top:10%;
+	margin-top: 10%;
 	width: 20%;
 	padding: 8px;
 	border: 1px solid #000000;
@@ -115,23 +115,27 @@ input[type="button"] {
 	</div>
 	<div id="container">
 		<h2>REGISTERATION BILL</h2>
-		<div class="fieldset-container" style="margin-top:10%">
+		<div class="fieldset-container" style="margin-top: 10%">
 			<fieldset>
 				<label>BILL NO :<c:out
 						value="${billAppoint.billAppoinmentNo}" /></label>
 			</fieldset>
 			<fieldset>
-				<label style="padding-left:200px">BILL DATE :<c:out value="${billAppoint.billDate}" /></label>
+				<label style="padding-left: 200px">BILL DATE :<c:out
+						value="${billAppoint.billDate}" /></label>
 			</fieldset>
 		</div>
-		<div class="fieldset-container" style="margin-bottom:10%">
+		<div class="fieldset-container" style="margin-bottom: 10%">
 			<fieldset>
-				<label>REG NO : <c:out value="${patientRecord.mrNo}" /></label> 
-				<label>NAME : <c:out value="${patientRecord.patientName}" /> </label>
+				<label>REG NO : <c:out value="${patientRecord.mrNo}" /></label> <label>NAME
+					: <c:out value="${patientRecord.patientName}" />
+				</label>
 			</fieldset>
 			<fieldset>
-			    <label style="padding-left:200px">REG DATE :<c:out value="${patientRecord.registrationDate}" /> </label>
-				<label style="padding-left:200px">PHONE NUMBER : <c:out value="${patientRecord.patientPhone}" /></label> 
+				<label style="padding-left: 200px">REG DATE :<c:out
+						value="${patientRecord.registrationDate}" />
+				</label> <label style="padding-left: 200px">PHONE NUMBER : <c:out
+						value="${patientRecord.patientPhone}" /></label>
 			</fieldset>
 		</div>
 		<div class="fieldset-container">
@@ -139,21 +143,26 @@ input[type="button"] {
 				<label>BILL AMOUNT FOR REGISTERATION :</label>
 			</fieldset>
 			<fieldset>
-			    <label style="padding-left:200px"><c:out value="${billAppoint.billAmount}" /></label>
+				<label style="padding-left: 200px"><c:out
+						value="${billAppoint.billAmount}" /></label>
 			</fieldset>
 		</div>
 		<input type="button" value="Print" class="btn-submit"
 			onclick="print_current_page()" />
 		<p>
 			<button
-				onclick="window.location.href='${pageContext.request.contextPath}/patient/listPatientRecords">Back
-				to List Patients</button>
+				onclick="window.location.href='${pageContext.request.contextPath}/patient/listPatientRecords'">Back
+				To List Patients</button>
+			<button onclick="goBack()">Go Back</button>
 		</p>
 	</div>
 </body>
 <script type="text/javascript">
 	function print_current_page() {
 		window.print();
+	}
+	function goBack() {
+		window.history.go(-2);
 	}
 </script>
 </html>

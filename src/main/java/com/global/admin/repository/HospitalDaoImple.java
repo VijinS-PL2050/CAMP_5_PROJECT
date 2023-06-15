@@ -70,7 +70,7 @@ public class HospitalDaoImple implements IHospitalDao {
 
 				
 				currentSession.saveOrUpdate(theDoctor);
-				theDoctor.setDoctorId("DI"+theDoctor.getDoId());
+				theDoctor.setDoctorId("DR"+theDoctor.getDoId());
 				currentSession.saveOrUpdate(theDoctor);
 		
 	}

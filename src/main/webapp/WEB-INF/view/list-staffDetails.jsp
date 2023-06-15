@@ -139,8 +139,8 @@ a {
 	<div id="container">
 	<h2>STAFF LIST</h2>
 	
-		<input type="button" value="Add StaffDetails"
-			onclick="window.location.href='showFormAdd'; return false;">
+		<!--  <input type="button" value="Add StaffDetails"
+			onclick="window.location.href='showFormAdd'; return false;">-->
 
 		<form action="searchByName" class="f1" method="get">
 			<fieldset>
@@ -158,7 +158,7 @@ a {
 				<th>BLOOD</th>
 				<th>PHONE NO</th>
 				<th>ADDRESS</th>
-				<th>ADHAR NO</th>
+				<th>AADHAAR NO</th>
 				<th>QUALIFICATION</th>
 				<th>EMAIL</th>
 				<th>ACTION</th>
@@ -201,8 +201,16 @@ a {
 			</c:forEach>
 
 		</table>
+		<p>
+			<button onclick="goBack()">Go Back</button>
+		</p>
 
 	</div>
 
 </body>
+<script>
+	function goBack() {
+		window.history.back();
+	}
+</script>
 </html>

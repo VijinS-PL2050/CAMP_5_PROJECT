@@ -182,6 +182,12 @@ a{
 				</tr>
 			</c:forEach>
 		</table>
+		<button onclick="goBack()">Go Back</button>
 	</div>
 </body>
+<script type="text/javascript">
+	function goBack() {
+		window.history.back();
+	}
+</script>
 </html>

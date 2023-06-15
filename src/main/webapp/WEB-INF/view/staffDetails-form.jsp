@@ -124,45 +124,95 @@ select, input[type="date"], input[type="submit"] {
 
 			<div class="fieldset-container">
 				<fieldset>
-					<label for="staffname">STAFF NAME:</label>
-					<f:input path="staffname" id="staffname" />
+
+					<c:if test="${StaffDetails.staffname == null}">
+
+						<label>STAFF NAME :</label>
+
+						<f:input path="staffname" placeholder="Enter staffname name"
+							pattern="[A-Za-z][A-Za-z\s]{3,30}[A-Za-z]$" required="true" />
+
+					</c:if>
+					<c:if test="${not empty StaffDetails.staffname}">
+						<f:hidden path="staffname" />
+						<label>STAFF NAME :</label>
+						<f:input path="staffname" disabled="true" />
+					</c:if>
+
 				</fieldset>
 
 				<fieldset>
-					<label for="dateofbirth">DATE OF BIRTH:</label>
-					<f:input type="date" path="dateofbirth" id="dateofbirth" />
-				</fieldset>
-			</div>
-
-			<div class="fieldset-container">
-				<fieldset>
-					<label for="gender">GENDER:</label> <select id="gender"
-						name="gender">
-						<option value="MALE">MALE</option>
-						<option value="FEMALE">FEMALE</option>
-						<option value="OTHER">OTHER</option>
-					</select>
-				</fieldset>
-
-				<fieldset>
-					<label for="bloodGroup">BLOOD GROUP:</label> <select
-						id="bloodGroup" name="bloodGroup">
-						<option value="O+">O+</option>
-						<option value="O-">O-</option>
-						<option value="A+">A+</option>
-						<option value="A-">A-</option>
-						<option value="B+">B+</option>
-						<option value="B-">B-</option>
-						<option value="AB+">AB+</option>
-						<option value="AB-">AB-</option>
-					</select>
+					<c:if test="${StaffDetails.dateofbirth == null}">
+						<label>DATE OF BIRTH:</label>
+						<f:input type="date" path="dateofbirth" id="dateofbirth"
+							placeholder="Enter date of birth" min="1963-01-01" max="2000-01-01" required="true" />
+					</c:if>
+					<c:if test="${not empty StaffDetails.dateofbirth}">
+						<f:hidden path="dateofbirth" />
+						<label>DATE OF BIRTH:</label>
+						<f:input path="dateofbirth" disabled="true" />
+					</c:if>
 				</fieldset>
 			</div>
 
 			<div class="fieldset-container">
 				<fieldset>
+					<c:if test="${StaffDetails.gender == null}">
+						<label>GENDER :</label>
+						<f:select path="gender" name="dropdownList" id="dropdownList">
+							<f:option value="">-- Select an option --</f:option>
+							<f:option value="MALE">MALE</f:option>
+							<f:option value="FEMALE">FEMALE</f:option>
+							<f:option value="OTHER">OTHER</f:option>
+
+						</f:select>
+					</c:if>
+					<c:if test="${not empty StaffDetails.gender}">
+						<f:hidden path="gender" />
+						<label>GENDER :</label>
+						<f:input path="gender" disabled="true" />
+					</c:if>
+
+				</fieldset>
+
+				<fieldset>
+
+					<c:if test="${StaffDetails.bloodGroup == null}">
+						<label>BLOOD GROUP :</label>
+						<f:select path="bloodGroup" name="dropdownLists"
+							id="dropdownLists">
+							<f:option value="">-- Select an option --</f:option>
+							<f:option value="O+">O+</f:option>
+							<f:option value="O-">O-</f:option>
+							<f:option value="A+">A+</f:option>
+							<f:option value="A-">A-</f:option>
+							<f:option value="B+">B+</f:option>
+							<f:option value="B-">B-</f:option>
+							<f:option value="AB+">AB+</f:option>
+							<f:option value="AB-">AB-</f:option>
+						</f:select>
+
+					</c:if>
+
+					<c:if test="${not empty StaffDetails.bloodGroup}">
+						<f:hidden path="bloodGroup" />
+						<label>BLOOD GROUP :</label>
+						<f:input path="bloodGroup" disabled="true" />
+
+					</c:if>
+
+				</fieldset>
+			</div>
+
+			<div class="fieldset-container">
+
+				<fieldset>
+
 					<label for="phoneno">PHONE NO:</label>
-					<f:input path="phoneno" id="phoneno" />
+
+					<f:input path="phoneno" id="phoneno" placeholder="Enter phoneNo"
+						pattern="^(\+91[\-\s]?)?0?(91)?[789]\d{9}$" required="true" />
+
 				</fieldset>
 				<fieldset>
 					<label for="address">ADDRESS:</label>
@@ -172,19 +222,41 @@ select, input[type="date"], input[type="submit"] {
 
 			<div class="fieldset-container">
 				<fieldset>
-					<label for="adharNo">ADHAR NO:</label>
-					<f:input path="adharNo" id="adharNo" />
+
+					<c:if test="${StaffDetails.adharNo == null}">
+						<label>AADHAAR NO:</label>
+						<f:input path="adharNo" placeholder="Enter aadharNo "
+							pattern="^[2-9]{1}[0-9]{3}\s[0-9]{4}\s[0-9]{4}$" required="true" />
+					</c:if>
+					<c:if test="${not empty StaffDetails.adharNo}">
+						<f:hidden path="adharNo" />
+						<label>AADHAAR NO:</label>
+						<f:input path="adharNo" disabled="true" />
+					</c:if>
 				</fieldset>
+
+
 				<fieldset>
-					<label for="qualification">QUALIFICATION:</label> <select
-						id="qualification" name="qualification">
-						<option value="PharmD">PharmD</option>
-						<option value="Diploma In Pharmacy">Diploma In Pharmacy</option>
-						<option value="B.Sc Medical Laboratory">B.Sc Medical
-							Laboratory</option>
-						<option value="Health Science">Health Science</option>
-						<option value="BSC Nursing">BSC Nursing</option>
-					</select>
+					<c:if test="${StaffDetails.qualification == null}">
+						<label>QUALIFICATION:</label>
+						<f:select path="qualification" name="dropdownLists"
+							id="dropdownLists">
+							<f:option value="">-- Select an option --</f:option>
+							<option value="PharmD">PharmD</option>
+							<option value="Diploma In Pharmacy">Diploma In Pharmacy</option>
+							<option value="B.Sc Medical Laboratory">B.Sc Medical
+								Laboratory</option>
+							<option value="Health Science">Health Science</option>
+							<option value="BSC Nursing">BSC Nursing</option>
+							<option value="BSC">BSC</option>
+							<option value="B.com">B.com</option>
+						</f:select>
+					</c:if>
+					<c:if test="${not empty StaffDetails.qualification}">
+						<f:hidden path="qualification" />
+						<label>QUALIFICATION:</label>
+						<f:input path="qualification" disabled="true" />
+					</c:if>
 				</fieldset>
 			</div>
 
@@ -193,20 +265,27 @@ select, input[type="date"], input[type="submit"] {
 					<label for="email">EMAIL:</label>
 					<f:input path="email" id="email" />
 				</fieldset>
-				<fieldset>
-				</fieldset>
+				<fieldset></fieldset>
 			</div>
 			<fieldset>
 
 				<input type="submit" value="Save" class="btn-submit" />
 			</fieldset>
 		</f:form>
-		<button
-
+		<p>
+			<button
 				onclick="window.location.href='${pageContext.request.contextPath}/staffDetails/list'">Back
 				to List</button>
-		
+			<button onclick="goBack()">Go Back</button>
+		</p>
+
+
 	</div>
 
 </body>
+<script>
+	function goBack() {
+		window.history.back();
+	}
+</script>
 </html>

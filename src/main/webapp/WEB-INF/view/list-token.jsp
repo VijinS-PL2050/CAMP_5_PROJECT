@@ -189,10 +189,16 @@ a {
 			<button
 				onclick="window.location.href='${pageContext.request.contextPath}/patient/listPatientRecords'">Back
 				To List Patients</button>
+			<button onclick="goBack()">Go Back</button>
 		</p>
 
 	</div>
 
 
 </body>
+<script type="text/javascript">
+	function goBack() {
+		window.history.back();
+	}
+</script>
 </html>

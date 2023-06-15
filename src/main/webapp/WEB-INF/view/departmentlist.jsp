@@ -133,54 +133,59 @@ a {
 
 	</div>
 
-<div id="container">
-<h2>DEPARTMENT LIST</h2>
-	<input type="button" value="AddDepartment"
-		onclick="window.location.href='showFormdept'; return false;">
+	<div id="container">
+		<h2>DEPARTMENT LIST</h2>
+		<input type="button" value="AddDepartment"
+			onclick="window.location.href='showFormdept'; return false;">
 
-	<form action="searchByName" class="f1" method="get">
-		
-	</form>
-	<!-- Add our html table -->
-	<table>
-		<tr>
-			<th>DEPARTMENT ID</th>
-			<th>DEPARTMENT NAME</th>
-			<th>ACTION</th>
-			
-		</tr>
-
-
-
-		<c:forEach var="tempdepartmentDetails" items="${departmentDetails}">
-
-
-			<c:url var="updateLink" value="/departmentdetails/showFormUpdate">
-				<c:param name="dId" value="${tempdepartmentDetails.dId}" />
-			</c:url>
-			<c:url var="deleteLink" value="/departmentdetails/showFormDelete">
-				<c:param name="dId" value="${tempdepartmentDetails.dId}" />
-			</c:url>
-
-			<c:url var="disableLink" value="/Department/disable">
-				<c:param name="dId" value="${tempdepartmentDetails.dId}" />
-			</c:url>
+		<form action="searchByName" class="f1" method="get"></form>
+		<!-- Add our html table -->
+		<table>
 			<tr>
-
-				<td>${tempdepartmentDetails.departmentId}</td>
-				<td>${tempdepartmentDetails.departmentName}</td>
-
-				<td>
-							<a href="${disableLink}"><i class="fa fa-trash-o"
-							style="font-size: 28px; color: #000000"></i></a></td>
-
+				<th>DEPARTMENT ID</th>
+				<th>DEPARTMENT NAME</th>
+				<th>ACTION</th>
 
 			</tr>
 
-		</c:forEach>
 
-	</table>
 
-</div>
+			<c:forEach var="tempdepartmentDetails" items="${departmentDetails}">
+
+
+				<c:url var="updateLink" value="/departmentdetails/showFormUpdate">
+					<c:param name="dId" value="${tempdepartmentDetails.dId}" />
+				</c:url>
+				<c:url var="deleteLink" value="/departmentdetails/showFormDelete">
+					<c:param name="dId" value="${tempdepartmentDetails.dId}" />
+				</c:url>
+
+				<c:url var="disableLink" value="/Department/disable">
+					<c:param name="dId" value="${tempdepartmentDetails.dId}" />
+				</c:url>
+				<tr>
+
+					<td>${tempdepartmentDetails.departmentId}</td>
+					<td>${tempdepartmentDetails.departmentName}</td>
+
+					<td><a href="${disableLink}"><i class="fa fa-trash-o"
+							style="font-size: 28px; color: #000000"></i></a></td>
+
+
+				</tr>
+
+			</c:forEach>
+
+		</table>
+		<p>
+			<button onclick="goBack()">Go Back</button>
+		</p>
+
+	</div>
 </body>
+<script>
+	function goBack() {
+		window.history.back();
+	}
+</script>
 </html>

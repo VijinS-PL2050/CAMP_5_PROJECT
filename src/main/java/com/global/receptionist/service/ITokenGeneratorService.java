@@ -14,5 +14,6 @@ public interface ITokenGeneratorService {
 	public void deleteTokenGenarator(TokenGenarator tokenGenarator);
 	public TokenGenarator searchById(int id);
 	public TokenGenarator getTokenGenarator(String MRNo);
+	public TokenGenarator getLastToken();
 
 }

@@ -123,7 +123,13 @@ select, input[type="datetime-local"], input[type="submit"] {
 		<p>
 			<a href="${pageContext.request.contextPath}/Department/list">Back
 				to List</a>
+			<button onclick="goBack()">Go Back</button>
 		</p>
 	</div>
 </body>
+<script>
+	function goBack() {
+		window.history.back();
+	}
+</script>
 </html>

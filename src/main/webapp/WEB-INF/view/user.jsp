@@ -134,6 +134,9 @@ select, input[type="datetime-local"], input[type="submit"] {
 
 			</fieldset>
 		</f:form>
+		<p>
+			<button onclick="goBack()">Go Back</button>
+		</p>
 		<%-- <button
 
 				onclick="window.location.href='${pageContext.request.contextPath}/index'">Back
@@ -141,4 +144,9 @@ select, input[type="datetime-local"], input[type="submit"] {
 		 --%>
 	</div>
 </body>
+<script>
+	function goBack() {
+		window.history.back();
+	}
+</script>
 </html>

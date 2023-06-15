@@ -3,6 +3,7 @@ package com.global.pharma.service;
 import java.util.List;
 
 import com.global.entity.BillMedicine;
+import com.global.entity.Diagnosis;
 import com.global.entity.MedicinePrescription;
 import com.global.entity.MedicinesStock;
 
@@ -20,6 +21,12 @@ public interface IMedicineStockService {
 	public List<MedicinePrescription>getMedicineveiw();
 	public List<MedicinePrescription> searchmedicineprescription(String theName);
 	public List<MedicinePrescription> searchmedicineVeiw(String theName);
-	public List<BillMedicine>getMedicinebill();
-	public List<BillMedicine>searchMedicinebill(String theName);
+	
+	
+	public List<MedicinePrescription> getveiwprisccription(int theId);
+	public List<BillMedicine> getveiwprisccrip(int theId);
+	public List<MedicinePrescription> getbill();
+	public List<MedicinePrescription> getbill(int theId);
+	//public void getbillDisable(int theId);
 }
+ 

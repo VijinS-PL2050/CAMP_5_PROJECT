@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.global.entity.BillMedicine;
+import com.global.entity.Diagnosis;
 import com.global.entity.MedicinePrescription;
 import com.global.entity.MedicinesStock;
 import com.global.pharma.service.IMedicineStockService;
@@ -88,9 +89,10 @@ public class MedicineStockController {
 	}
 
 	@GetMapping("/listnew")
-	public String listmedicinepriscription(Model theModel) {
+	public String listmedicinepriscription(@RequestParam("mpId") int mpId, Model theModel) {
+		System.out.println(mpId);
 		System.out.println("im here");
-		List<MedicinePrescription> med = medicineService.getMedicinePrescription();
+		List<MedicinePrescription> med = medicineService.getveiwprisccription(mpId);
 		System.out.println("im here");
 		theModel.addAttribute("MedicinePrescriptions", med);
 		System.out.println("im here");
@@ -125,24 +127,26 @@ public class MedicineStockController {
 		theModel.addAttribute("MedicinePrescriptions", theCustomer); // search customers to the model
 		return "list-veiw";
 }
-	@GetMapping("/listbill")
-	public String listMedicineBill(Model theModel) {
+	
+	@GetMapping("/listbills")
+	public String listMedicineBill(@RequestParam("mpId") int mpId,Model theModel) {
+		System.out.println(mpId);
 		System.out.println("im here");
-		List<BillMedicine> med = medicineService.getMedicinebill();
+		List<MedicinePrescription> med = medicineService.getveiwprisccription(mpId);
 		System.out.println("im here");
-		theModel.addAttribute("BillMedicines", med);
+		theModel.addAttribute("MedicinePrescriptions", med);
 		System.out.println("im here");
 		
 
-		return "list-bill";
+		
 
-	}
-	@PostMapping("/searched")
-	public String searchmedicinebill(@RequestParam("searchName") String searchName, Model theModel) {
-		// create model attribute to bind form data
-		List<BillMedicine> theCustomer = medicineService.searchMedicinebill(searchName);
-		theModel.addAttribute("BillMedicines", theCustomer); // search customers to the model
-		return "list-bill";
-}
+		return "list-bills";
 	
 }
+	@GetMapping("/Disablebill")
+	public String Disablebill(@RequestParam("mpId") int theId, Model theModel) {
+		System.out.println(theId);
+		medicineService.getmedicineDisable(theId);
+		return "redirect:/MedicinesStock/listbills";
+	}}
+	

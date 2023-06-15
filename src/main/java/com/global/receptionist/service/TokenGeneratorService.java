@@ -68,4 +68,10 @@ public class TokenGeneratorService implements ITokenGeneratorService {
 		return repo.getTokenGenarator(MRNo);
 	}
 
+	@Override
+	public TokenGenarator getLastToken() {
+		// TODO Auto-generated method stub
+		return repo.getLastToken();
+	}
+
 }

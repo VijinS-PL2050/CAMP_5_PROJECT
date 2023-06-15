@@ -98,14 +98,17 @@ public class AppointmentController {
     }
 
 	@PostMapping("/insertAppointment")
-	public String insertAppointment(@ModelAttribute("appointment") Appointment forAppointment) {
+	public String insertAppointment(@ModelAttribute("appointment") Appointment forAppointment,HttpSession session) {
 
 		if(forAppointment.getaId()==0) {
 			System.out.println();
 			BillAppoinment billAppoinment=generateBillAppoint(forAppointment);
 			forAppointment.setBillAppoinment(billAppoinment);
 			appointmentService.insertUpdateAppointment(forAppointment);
-			generateToken(forAppointment);
+			int tokNo=generateToken(forAppointment);
+			System.out.println("hhh "+tokNo);
+			session.setAttribute("token", tokNo);
+			
 			return "redirect:/billReceptionist/showBillForReceptionistAppoint";
 		}else {
 			return "redirect:/appointment/listAppointmentRecords";
@@ -187,7 +190,7 @@ public class AppointmentController {
 
 	}
 
-	private void generateToken(Appointment appointment) {
+	private int generateToken(Appointment appointment) {
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 		LocalDateTime noww = LocalDateTime.parse(LocalDateTime.now().format(format), format);
 		LocalDateTime todayAt6 = LocalDate.now().atTime(20, 0);
@@ -198,13 +201,16 @@ public class AppointmentController {
 		if (appointDate.isAfter(noww) && appointDate.isBefore(todayAt6)) {
 			if (maxToken > 0) {
 				tokenGenarator.setTokenTime(appointment.getAppointmentDateTime().plusMinutes(15));
-				tokenGenarator.setTokenNo("T" + doctorId + (31-maxToken));
+				tokenGenarator.setTokenNo("T" + doctorId +"00"+ (31-maxToken));
 				tokenGenarator.setAppointment(appointment);
 				tokenGeneratorService.insertUpdateTokenGenarator(tokenGenarator);
 				doctorDetails.setNoOfToken(maxToken - 1);
 				doctorAndDepartmentService.updateForToken(doctorDetails);
+				return tokenGenarator.gettId();
 			}
 		}
+		return 0;
+		
 	}
 
 	/*private void generateBill(Appointment forAppoint) {

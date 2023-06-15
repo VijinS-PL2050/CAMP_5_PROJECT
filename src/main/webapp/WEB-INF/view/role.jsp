@@ -22,7 +22,7 @@ body {
 	justify-content: flex-end;
 	align-items: center;
 	margin-top: 20px;
-	margin-right: 100px;
+	margin-right: 170px;
 }
 
 .logo {
@@ -94,7 +94,9 @@ select, input[type="datetime-local"], input[type="submit"] {
 		<a href="https://www.freepnglogos.com/pics/medical-logo-png"
 			title="Image from freepnglogos.com"> <img
 			src="https://www.freepnglogos.com/uploads/medical-logo-png-5.png"
-			width="200" alt="medical logo png" /></a>
+			width="200" alt="medical logo png" />
+
+		</a>
 
 		<h1 class="logo">
 
@@ -121,12 +123,19 @@ select, input[type="datetime-local"], input[type="submit"] {
 
 			</fieldset>
 		</f:form>
-		<button
-
-				onclick="window.location.href='${pageContext.request.contextPath}/role/list'">Back
+		<p>
+			<button onclick="window.location.href='${pageContext.request.contextPath}/role/list'">Back
 				to List</button>
+			<button onclick="goBack()">Go Back</button>
+		</p>
+		
 		
 	</div>
 </body>
+<script>
+	function goBack() {
+		window.history.back();
+	}
+</script>
 </html>
 
